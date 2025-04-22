@@ -1,0 +1,24 @@
+.Layout {
+  width: 100vw;
+  height: 100vh;
+  background: var(--c-bg) url("@/assets/deep.png");
+  position: relative;
+  :global {
+    .pos-left {
+      position: absolute;
+      left: -1.5px;
+      top: 143px;
+      background: url("@/assets/left.png") no-repeat;
+      width: 49px;
+      height: 782px;
+    }
+    .pos-right {
+      position: absolute;
+      right: -1.5px;
+      top: 143px;
+      background: url("@/assets/right.png") no-repeat;
+      width: 49px;
+      height: 782px;
+    }
+  }
+}
