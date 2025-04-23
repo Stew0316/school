@@ -1,7 +1,7 @@
 const Area = () => {
-  return <>
+  return <div>
     area
-  </>
+  </div>
 }
 
 export default Area

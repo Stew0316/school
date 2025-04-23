@@ -2,3 +2,13 @@
   --c-main: #b9e8ff;
   --c-bg: #091428;
 }
+.text {
+  background: linear-gradient(
+    to bottom,
+    #ffffff,
+    #77baff
+  ); /* 从红到蓝，从上到下 */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 2px 3px 2px #f8fcff50;
+}

@@ -10,8 +10,10 @@ function App() {
   return (
     <ConfigProvider locale={zhCN}>
       <Layout>
+        <div className="outlet">
 
-        <Outlet />
+          <Outlet />
+        </div>
 
       </Layout>
     </ConfigProvider>

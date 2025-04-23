@@ -2,7 +2,9 @@
   width: 100vw;
   height: 100vh;
   background: var(--c-bg) url("@/assets/deep.png");
+  background-blend-mode: overlay;
   position: relative;
+  overflow: hidden;
   :global {
     .pos-left {
       position: absolute;
@@ -11,6 +13,7 @@
       background: url("@/assets/left.png") no-repeat;
       width: 49px;
       height: 782px;
+      z-index: 3;
     }
     .pos-right {
       position: absolute;
@@ -19,6 +22,84 @@
       background: url("@/assets/right.png") no-repeat;
       width: 49px;
       height: 782px;
+      z-index: 2;
+    }
+    .head-left {
+      position: absolute;
+      z-index: 2;
+      left: 134px;
+      width: 698px;
+      height: 88px;
+      background: url("@/assets/top-left.png") no-repeat;
+    }
+    .head-right {
+      position: absolute;
+      z-index: 2;
+      right: 134px;
+      width: 698px;
+      height: 88px;
+      background: url("@/assets/top-right.png") no-repeat;
+    }
+    .head-name {
+      position: absolute;
+      width: 887px;
+      height: 100px;
+      left: calc(50% - 443.5px);
+      top: 0;
+      background-image: url("@/assets/top.png");
+      z-index: 10;
+      line-height: 80px;
+      text-align: center;
+      font-size: 44px;
+      font-style: italic;
+      letter-spacing: 5px;
+      font-weight: bold;
+    }
+    .head-timer {
+      position: absolute;
+      z-index: 4;
+      top: 46px;
+      right: 57.5px;
+      color: var(--c-main);
+      .weeks {
+        margin-right: 18px;
+      }
+    }
+    .head-weather {
+      position: absolute;
+      z-index: 2;
+      top: 39px;
+      left: 56px;
+      display: flex;
+      align-items: center;
+      .wea-item {
+        display: flex;
+        align-items: center;
+        margin-right: 39px;
+        img {
+          margin-right: 4px;
+          width: 40px;
+          height: 40px;
+        }
+        .wea-desc {
+          color: var(--c-main);
+          div:nth-child(1) {
+            font-size: 12px;
+          }
+          div:nth-child(2) {
+            font-size: 10px;
+            margin-top: 6px;
+          }
+        }
+      }
+    }
+    .outlet {
+      position: absolute;
+      width: 100vw;
+      height: 100vh;
+      left: 0;
+      top: 0;
+      z-index: 1;
     }
   }
 }

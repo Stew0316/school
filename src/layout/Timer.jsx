@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import dayjs from "dayjs"
 import weekday from 'dayjs/plugin/weekday';
 dayjs.extend(weekday);
-const Timer = () => {
+const Timer = ({ className }) => {
   const [time, setTime] = useState(null)
   const weekMap = {
     1: '一',
@@ -24,8 +24,8 @@ const Timer = () => {
       clearInterval(times)
     }
   }, [])
-  return <div>
-    <span>{dayjs().format('YYYY.MM.DD')} 星期{weekMap[dayjs().weekday()]}</span>
+  return <div className={className}>
+    <span className="weeks">{dayjs().format('YYYY.MM.DD')} 星期{weekMap[dayjs().weekday()]}</span>
     <span>{time}</span>
   </div>
 }
