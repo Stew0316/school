@@ -12,6 +12,7 @@ const Layout = ({ children }) => {
     <Timer className="head-timer"></Timer>
     <Weather className="head-weather"></Weather>
     {children}
+    <div className="bottom"></div>
   </div>
 }
 

@@ -1,0 +1,12 @@
+.country {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  padding: 0 49px;
+  :global {
+    .left {
+      padding-top: 95px;
+      width: 430px;
+    }
+  }
+}

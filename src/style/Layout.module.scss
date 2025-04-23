@@ -54,6 +54,9 @@
       font-style: italic;
       letter-spacing: 5px;
       font-weight: bold;
+      .text {
+        font-size: 44px;
+      }
     }
     .head-timer {
       position: absolute;
@@ -92,6 +95,16 @@
           }
         }
       }
+    }
+    .bottom {
+      position: absolute;
+      z-index: 2;
+      bottom: 16px;
+      width: 1613px;
+      height: 70px;
+      bottom: 16px;
+      left: calc(50% - 806.5px);
+      background: url("@/assets/bottom.png") no-repeat;
     }
     .outlet {
       position: absolute;
