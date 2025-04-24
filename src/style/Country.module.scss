@@ -8,5 +8,49 @@
       padding-top: 95px;
       width: 430px;
     }
+    .center {
+      flex: 1;
+      .china {
+        height: 700px;
+      }
+    }
+    .right {
+      width: 430px;
+      padding-top: 77px;
+      .line-data {
+        height: 250px;
+      }
+      .range {
+        margin-bottom: 12px;
+        .range-picker {
+          width: 100%;
+        }
+      }
+      .create {
+        padding: 0 28.5px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        .create-item {
+          width: 175px;
+          height: 104px;
+          box-sizing: border-box;
+          padding: 17px;
+          display: flex;
+          .create-info {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            flex: 1;
+            & > div:nth-child(2) {
+              color: #7cc4ff;
+              margin-top: 8px;
+            }
+          }
+        }
+      }
+    }
   }
 }

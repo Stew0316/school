@@ -1,6 +1,8 @@
 :root {
   --c-main: #b9e8ff;
   --c-bg: #091428;
+  --c-blue: #2e7be0;
+  --c-back: #133159;
 }
 .text {
   font-size: 20px;
@@ -14,4 +16,89 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   text-shadow: 2px 3px 2px #f8fcff50;
+}
+.school-table .header {
+  display: flex;
+  padding: 10px 16px;
+  background: var(--c-back);
+}
+.school-table .header > span:nth-child(1) {
+  width: 180px;
+}
+.school-table .header > span:nth-child(2) {
+  width: 155px;
+}
+.school-table .header > span:nth-child(3) {
+  /* flex: 1; */
+}
+.school-table .header > span {
+  font-size: 14px;
+}
+.school-list {
+  max-height: 180px;
+  overflow-y: auto;
+}
+.school-item {
+  display: flex;
+  line-height: 30px;
+}
+.school-item span {
+  line-height: 30px;
+  font-size: 12px;
+}
+.school-item .name {
+  width: 195px;
+  display: inline-flex;
+  padding-left: 16px;
+}
+.school-item .name span {
+  max-width: 9em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: inline-block;
+}
+.school-item .count {
+  width: 155px;
+  padding-right: 16px;
+}
+/* 2. 定义滚动条整体宽度 */
+.school-scroll::-webkit-scrollbar {
+  width: 12px; /* 垂直滚动条宽度 */
+  height: 12px; /* 水平滚动条高度 */
+  background: transparent; /* 整体背景透明 */
+}
+
+/* 3. 轨道（track）透明 */
+.school-scroll::-webkit-scrollbar-track {
+  background: transparent; /* 轨道背景透明 */
+}
+
+/* 4. 滑块（thumb）应用渐变 */
+.school-scroll::-webkit-scrollbar-thumb {
+  border-radius: 6px; /* 圆角滑块 */
+  background: linear-gradient(135deg, #41fdbf, #247db8); /* 渐变色 */
+  border: 2px solid transparent; /* 让背景透出轨道“透明”效果 */
+  background-clip: content-box; /* 保证边框透明区域可见 */
+}
+
+/* 5. 滚动条拐角也透明（若有两条同时出现） */
+.school-scroll::-webkit-scrollbar-corner {
+  background: transparent; /* 拐角透明 */
+}
+.wrap-top {
+  margin-top: 15px;
+}
+.warp-20 {
+  margin-top: 20px;
+}
+.ant-picker {
+  border-color: var(--c-main);
+}
+.ant-picker .ant-picker-input > input {
+  color: var(--c-main);
+  text-align: center;
+}
+.ant-picker .ant-picker-separator {
+  color: var(--c-main);
 }
