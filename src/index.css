@@ -4,10 +4,17 @@
   --c-blue: #2e7be0;
   --c-back: #133159;
 }
+.youshe {
+  font-family: "youshe";
+}
 .text {
   font-size: 20px;
-  font-style: italic;
-  font-weight: bold;
+  /* font-style: italic; */
+  /* font-weight: bold; */
+  font-family: "youshe";
+  font-weight: 400;
+  font-style: normal;
+  color: #f8fcff;
   background: linear-gradient(
     to bottom,
     #ffffff,
@@ -15,7 +22,7 @@
   ); /* 从红到蓝，从上到下 */
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  text-shadow: 2px 3px 2px #f8fcff50;
+  text-shadow: 1px 3px 2px #f8fcff10;
 }
 .school-table .header {
   display: flex;
@@ -101,4 +108,75 @@
 }
 .ant-picker .ant-picker-separator {
   color: var(--c-main);
+}
+.map-tooltip {
+  position: fixed;
+  z-index: 3;
+  background: url("@/assets/map-block.png") no-repeat center / 100% 100%;
+  padding: 7px;
+  left: var(--left);
+  top: var(--top);
+}
+.map-tooltip-content {
+  background: #00000090;
+  padding: 9px;
+}
+.map-tooltip-content .area {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+.map-tooltip-content .school-count {
+  line-height: 30px;
+  color: #ffffff90;
+  font-size: 14px;
+}
+.numbers {
+  display: flex;
+}
+.numbers > div {
+  text-align: center;
+  aspect-ratio: 50/65;
+  line-height: 1;
+  margin-right: 10px;
+  background: #01175233 url("@/assets/count.png") no-repeat center / 100% 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.numbers > div :last-child {
+  margin-right: 0;
+}
+.bot-tab {
+  position: fixed;
+  z-index: 5;
+  bottom: 10px;
+  width: 761px;
+  left: calc(50% - 380.5px);
+  display: flex;
+  align-items: center;
+}
+.bot-tab img {
+  width: 44px;
+  height: 44px;
+}
+.bot-tab .bot-wrap {
+  display: flex;
+  align-items: center;
+}
+.bot-tab .bot-wrap div {
+  width: 117px;
+  height: 42px;
+  text-align: center;
+  line-height: 42px;
+  background: linear-gradient(180deg, #0b2e4a, #0b2d4857);
+  margin-right: 15px;
+  transform: skew(-10deg);
+  font-size: 18px;
+}
+.bot-tab .bot-wrap div:last-child {
+  margin-right: 0;
+}
+.bot-tab .bot-wrap .active {
+  background: linear-gradient(180deg, #1776c0, #155ce7);
 }

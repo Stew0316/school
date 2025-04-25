@@ -17,7 +17,6 @@ const Timer = ({ className }) => {
   useEffect(() => {
     times = setInterval(() => {
       const timedata = dayjs().format('HH:mm:ss')
-      console.log(timedata)
       setTime(timedata)
     }, 1000)
     return () => {

@@ -4,7 +4,25 @@ import SchoolTable from "@/components/SchoolTable";
 import create1 from "@/assets/create1.png"
 import { DatePicker, Space } from 'antd';
 import * as echarts from 'echarts';
-import { useEffect, useMemo, useState } from "react";
+import { MapChart } from 'echarts/charts';                       // 地图图表
+import { TooltipComponent, VisualMapComponent, GeoComponent } from 'echarts/components';
+import { CanvasRenderer } from 'echarts/renderers';              // 渲染器
+import chinaJson from '@/assets/china.json';
+import { useEffect, useMemo, useState, useRef } from "react";
+import Num from "@/components/Num";
+import Tooltip from "@/components/Tooltip";
+import BottomTab from "@/layout/BototomTab";
+echarts.use([MapChart, TooltipComponent, VisualMapComponent, GeoComponent, CanvasRenderer]);
+echarts.registerMap('china', chinaJson);
+const COLORS = ['#1067B3', '#133780', '#10184D'];
+function pickColor(name) {
+  // 简单哈希：把字符串的 charCode 累加，然后 mod 三色数
+  let h = 0;
+  for (let i = 0; i < name.length; i++) {
+    h += name.charCodeAt(i);
+  }
+  return COLORS[h % COLORS.length];
+}
 const { RangePicker } = DatePicker;
 const gradientColor = new echarts.graphic.LinearGradient(
   0, 0, 0, 1,                // (x1,y1)=(0,0) 顶部；(x2,y2)=(0,1) 底部 :contentReference[oaicite:1]{index=1}
@@ -23,6 +41,9 @@ const gradientColor1 = new echarts.graphic.LinearGradient(
   false
 );
 const Country = () => {
+  const prevIndex = useRef(null);
+  const [tipData, setTipData] = useState({});
+  const [showTip, setShowTip] = useState(false);
   const [tableData, setTableData] = useState([
     {
       name: "北京大学北京大学北京大学",
@@ -129,6 +150,52 @@ const Country = () => {
       ]
     }
   }, [channelData])
+  const [chinaChart, setChinaChart] = useState(null)
+  const chinaOp = useMemo(() => {
+    const data = chinaJson.features.map((feat, idx) => ({
+      name: feat.properties.name,  // 省份名
+      value: Math.random() * 1000,    // 随机示例值，可替换为真实数据
+      itemStyle: {
+        areaColor: COLORS[idx % COLORS.length],
+        borderColor: '#3ba0ff',
+        borderWidth: 1
+      },
+      emphasis: {                   // 悬停高亮
+        itemStyle: {
+          areaColor: '#1067B3',
+          borderColor: '#FF8A00',
+          borderWidth: 2
+        }
+      }
+    }));
+    return {
+      series: [{
+        name: '省份数据',
+        type: 'map',
+        map: 'china',
+        roam: true,
+        label: {
+          show: true,           // 默认状态下显示标签
+          color: '#ffffff',      // 白色文字，保证在深蓝底上可见 
+          fontSize: 10,
+          formatter: '{b}'       // 显示区域名称
+        },
+        // 不需要给 data 赋值也会渲染全量 geoJson 特征，itemStyle 回调按 dataIndex 着色
+        itemStyle: {
+          borderColor: '#3ba0ff',
+          areaColor: params => pickColor(params.name)    // ← 按省名哈希挑色 
+        },
+        data,
+        emphasis: {
+          itemStyle: {
+            borderColor: '#FF8A00',
+            borderWidth: 3
+          },
+          label: { show: true, color: '#fff' }
+        }
+      }]
+    }
+  }, [channelData])
   const initChart = (classname) => {
     var chartDom = document.querySelector(classname);
     return echarts.init(chartDom);
@@ -144,8 +211,46 @@ const Country = () => {
     }
   }, [saleOp, saleChart])
   useEffect(() => {
+    let times
+    if (!times) {
+      times = setTimeout(() => {
+        setTipData({})
+        setShowTip(false)
+      }, 600)
+    }
+    return () => {
+      clearTimeout(times)
+    }
+  }, [tipData])
+  useEffect(() => {
+    if (chinaChart) {
+      chinaChart.setOption(chinaOp);
+      chinaChart.on('click', function (params) {
+        // 先取消上一次的高亮
+        if (prevIndex.current != null) {
+          chinaChart.dispatchAction({
+            type: 'downplay',
+            seriesIndex: 0,
+            dataIndex: prevIndex.current
+          });
+        }
+        // 高亮当前
+        chinaChart.dispatchAction({
+          type: 'highlight',
+          seriesIndex: 0,
+          dataIndex: params.dataIndex
+        });
+        prevIndex.current = params.dataIndex;
+        const [x, y] = chinaChart.convertToPixel({ seriesIndex: 0 }, params.name);
+        setTipData({ x: x + 500, y: y + 100, showExpand: true, schoolCount: 8000, sales: 8000, area: params.name, expandCount: 8000 });
+        setShowTip(true)
+      });
+    }
+  }, [chinaOp, chinaChart])
+  useEffect(() => {
     setSeaChart(initChart(".country-sea"));
     setSaleChart(initChart(".line-sale"));
+    setChinaChart(initChart(".china"));
   }, [])
   return <div className={style.country}>
     <div className="left">
@@ -156,8 +261,24 @@ const Country = () => {
       <Title className={'wrap-top'} text="在岗人数动态分析"></Title>
     </div>
     <div className="center">
-      <div className="china"></div>
-      <div></div>
+      <div className="china-map">
+        <div className="china"></div>
+      </div>
+      <div className="center-data">
+        <div className="center-data-item">
+          <Num data={1200}></Num>
+          <div className="center-data-text">院校（所）</div>
+        </div>
+        <div className="center-data-item center-data-center">
+          <Num data={2000}></Num>
+          <div className="center-data-text">月销售额（万元）</div>
+        </div>
+        <div className="center-data-item">
+          <Num data={4200}></Num>
+          <div className="center-data-text">实训人数</div>
+        </div>
+      </div>
+      <BottomTab></BottomTab>
     </div>
     <div className="right">
       <Title text="全国流量池"></Title>
@@ -199,6 +320,7 @@ const Country = () => {
         </div>
       </div>
     </div>
+    {showTip && <Tooltip {...tipData}></Tooltip>}
   </div>
 }
 

@@ -3,15 +3,44 @@
   height: 100%;
   display: flex;
   padding: 0 49px;
+  position: relative;
+  background: url("@/assets/background.png") no-repeat;
+  // mix-blend-mode: multiply;
   :global {
     .left {
       padding-top: 95px;
       width: 430px;
     }
     .center {
+      padding-top: 113px;
       flex: 1;
       .china {
         height: 700px;
+        margin-bottom: 10px;
+      }
+      .center-data {
+        display: flex;
+        text-align: center;
+        justify-content: space-between;
+        align-items: end;
+        .center-data-item {
+          .numbers > div {
+            width: 50px;
+            font-size: 24px;
+            font-family: "youshe";
+          }
+          .center-data-text {
+            margin-top: 18px;
+            font-size: 24px;
+            font-family: "youshe";
+          }
+        }
+        .center-data-center {
+          .numbers > div {
+            width: 66px;
+            font-size: 40px;
+          }
+        }
       }
     }
     .right {
