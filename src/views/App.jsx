@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import './App.css'
 import { Outlet } from 'react-router'
-import { ConfigProvider } from 'antd';
+import { ConfigProvider, Watermark } from 'antd';
 import zhCN from 'antd/locale/zh_CN';
 import dayjs from 'dayjs';
 import Layout from "@/layout/Layout"
@@ -20,13 +20,16 @@ function App() {
         }
       }
     }}>
-      <Layout>
-        <div className="outlet">
+      <Watermark content="Stew" font={{ color: "#ffffff20" }}>
+        <Layout>
+          <div className="outlet">
 
-          <Outlet />
-        </div>
+            <Outlet />
+          </div>
 
-      </Layout>
+        </Layout>
+      </Watermark>
+
     </ConfigProvider>
   )
 }

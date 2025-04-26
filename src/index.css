@@ -45,12 +45,17 @@
   max-height: 180px;
   overflow-y: auto;
 }
+.school-area .school-list {
+  max-height: 462px;
+  overflow-y: auto;
+}
+
 .school-item {
   display: flex;
-  line-height: 30px;
+  line-height: var(--line-height);
 }
 .school-item span {
-  line-height: 30px;
+  line-height: var(--line-height);
   font-size: 12px;
 }
 .school-item .name {
@@ -64,6 +69,23 @@
   text-overflow: ellipsis;
   white-space: nowrap;
   display: inline-block;
+}
+.school-area .school-item > span:nth-child(3) {
+  text-align: center;
+  flex: 1;
+}
+.school-area .header > span:nth-child(3) {
+  flex: 1;
+  text-align: center;
+}
+.school-area .school-list > .school-item:nth-child(1) > span:nth-child(3),
+.school-area .school-list > .school-item:nth-child(2) > span:nth-child(3),
+.school-area .school-list > .school-item:nth-child(3) > span:nth-child(3) {
+  background: url("@/assets/hexagon.png") no-repeat center / 20px 20px;
+  line-height: 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 .school-item .count {
   width: 155px;
@@ -98,6 +120,9 @@
 }
 .warp-20 {
   margin-top: 20px;
+}
+.warp-30 {
+  margin-top: 30px;
 }
 .ant-picker {
   border-color: var(--c-main);

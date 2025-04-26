@@ -1,0 +1,178 @@
+.area {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  padding: 115px 49px 0;
+  box-sizing: border-box;
+  position: relative;
+  background: url("@/assets/background.png") no-repeat;
+  :global {
+    .center {
+      width: 877px;
+      margin-right: 15px;
+      .china-map {
+        height: 750px;
+        background: url("@/assets/plate.png") no-repeat center / 100% 100%;
+        margin-top: 10px;
+        padding-top: 38px;
+        .map-text {
+          width: 748px;
+          height: 61px;
+          line-height: 61px;
+          background: url("@/assets/input.png") no-repeat center / 100%;
+          box-sizing: border-box;
+          padding-left: 50px;
+          font-size: 24px;
+          display: flex;
+          justify-content: space-between;
+
+          margin-left: 71px;
+          input {
+            background-color: transparent;
+
+            outline: none;
+            border: none;
+            color: #1786ef;
+            flex: 1;
+            &::placeholder {
+              color: #1786ef;
+            }
+          }
+          .icons {
+            margin: 0 28px;
+            display: inline-flex;
+          }
+        }
+      }
+      .china {
+        margin: 25px auto 0;
+        width: 766px;
+        height: 600px;
+      }
+      .center-data {
+        display: flex;
+        text-align: center;
+        justify-content: space-between;
+        align-items: end;
+        .center-data-item {
+          .numbers > div {
+            width: 50px;
+            font-size: 24px;
+            font-family: "youshe";
+          }
+          .center-data-text {
+            margin-top: 18px;
+            font-size: 24px;
+            font-family: "youshe";
+          }
+        }
+        .center-data-center {
+          .numbers > div {
+            width: 66px;
+            font-size: 40px;
+          }
+        }
+      }
+    }
+    .left {
+      display: flex;
+      flex-direction: column;
+      width: 430px;
+      padding: 10px;
+      .company {
+        overflow-y: auto;
+      }
+      .left-plans {
+        width: 210px;
+      }
+      .plan-wrap {
+        display: flex;
+        align-items: center;
+        .legend {
+          flex: 1;
+          .plan-legend {
+            background: linear-gradient(
+              to right,
+              /* 横向由左向右渐变 */ #25519c71,
+              /* 最左侧 8 位十六进制，透明度 44% */ #488bff00
+            );
+            margin-bottom: 48px;
+            line-height: 30px;
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+            &:last-child {
+              margin-bottom: 0;
+            }
+            .le-span {
+              display: inline-flex;
+              width: 9px;
+              height: 9px;
+              border-radius: 50%;
+              margin: 0 10px;
+            }
+            .guan {
+              background-color: #42a3fc;
+            }
+            .people-guan {
+              color: #42a3fc;
+            }
+            .qing {
+              background-color: #21e7fb;
+            }
+            .people-qing {
+              color: #21e7fb;
+            }
+            .qingnian {
+              background-color: #f4b712;
+            }
+            .people-qingnian {
+              color: #f4b712;
+            }
+            .people-le {
+              font-family: "youshe";
+            }
+          }
+        }
+      }
+    }
+    .right {
+      width: 430px;
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+    }
+    .company {
+      height: 493px;
+      .company-item {
+        .company-name {
+          padding: 12px;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+        .top3 {
+          color: #ffd03b;
+        }
+        span {
+          font-size: 14px;
+        }
+        .name {
+          margin-left: 20px;
+        }
+        .top3-icon {
+          width: 20px;
+          height: 24px;
+          display: inline-flex;
+          justify-content: center;
+          align-items: center;
+          background: url("@/assets/hexagon.png") no-repeat center / 20px 24px;
+        }
+      }
+    }
+    .plans {
+      height: 210px;
+      margin-top: 30px;
+    }
+  }
+}

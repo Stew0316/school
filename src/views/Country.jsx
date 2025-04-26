@@ -2,7 +2,7 @@ import Title from "@/layout/Title";
 import style from "@/style/Country.module.scss"
 import SchoolTable from "@/components/SchoolTable";
 import create1 from "@/assets/create1.png"
-import { DatePicker, Space } from 'antd';
+import { DatePicker, Space, Carousel } from 'antd';
 import * as echarts from 'echarts';
 import { MapChart } from 'echarts/charts';                       // 地图图表
 import { TooltipComponent, VisualMapComponent, GeoComponent } from 'echarts/components';
@@ -12,6 +12,9 @@ import { useEffect, useMemo, useState, useRef } from "react";
 import Num from "@/components/Num";
 import Tooltip from "@/components/Tooltip";
 import BottomTab from "@/layout/BototomTab";
+import goleft from "@/assets/go-left.png"
+import goright from "@/assets/go-right.png"
+import people from "@/assets/people.png"
 echarts.use([MapChart, TooltipComponent, VisualMapComponent, GeoComponent, CanvasRenderer]);
 echarts.registerMap('china', chinaJson);
 const COLORS = ['#1067B3', '#133780', '#10184D'];
@@ -41,6 +44,70 @@ const gradientColor1 = new echarts.graphic.LinearGradient(
   false
 );
 const Country = () => {
+  const [jobList, setJobList] = useState([
+    {
+      name: "岗位名称",
+      inSchool: "200",
+      train: "3000",
+      total: "200",
+      rank: "1"
+    },
+    {
+      name: "岗位名称",
+      inSchool: "200",
+      train: "3000",
+      total: "200",
+      rank: "1"
+    },
+    {
+      name: "岗位名称",
+      inSchool: "200",
+      train: "3000",
+      total: "200",
+      rank: "1"
+    },
+    {
+      name: "岗位名称",
+      inSchool: "200",
+      train: "3000",
+      total: "200",
+      rank: "1"
+    },
+    {
+      name: "岗位名称",
+      inSchool: "200",
+      train: "3000",
+      total: "200",
+      rank: "1"
+    },
+  ]);
+  const CarouselRef = useRef(null);
+  const [topData, setTopData] = useState([
+    {
+      img: people,
+      name: "TOP-1 姓名"
+    },
+    {
+      img: people,
+      name: "TOP-1 姓名"
+    },
+    {
+      img: people,
+      name: "TOP-1 姓名"
+    },
+    {
+      img: people,
+      name: "TOP-1 姓名"
+    },
+    {
+      img: people,
+      name: "TOP-1 姓名"
+    },
+    {
+      img: people,
+      name: "TOP-1 姓名"
+    },
+  ]);
   const prevIndex = useRef(null);
   const [tipData, setTipData] = useState({});
   const [showTip, setShowTip] = useState(false);
@@ -257,8 +324,76 @@ const Country = () => {
       <Title text="TOP院校销售额排名"></Title>
       <SchoolTable data={tableData} lineHeight={30}></SchoolTable>
       <Title className={'wrap-top'} text="全国创业之星TOP100"></Title>
+      <div className="img-slider">
+        <img onClick={() => CarouselRef.current.prev()} className="img-slider-left" src={goleft} alt="" />
+        <Carousel ref={CarouselRef} arrows={false} dots={false} draggable={true} autoplay={true} >
+          <div className="img-slider-item">
+            {
+              topData.map(item => {
+                return <div className="img-slider-item-item">
+                  <img src={item.img} alt="" />
+                  <div>{item.name}</div>
+                </div>
+              })
+            }
+          </div>
+          <div className="img-slider-item">
+            {
+              topData.map(item => {
+                return <div className="img-slider-item-item">
+                  <img src={item.img} alt="" />
+                  <div>{item.name}</div>
+                </div>
+              })
+            }
+          </div>
+        </Carousel>
+        <img onClick={() => CarouselRef.current.next()} className="img-slider-right" src={goright} alt="" />
+      </div>
       <Title className={'wrap-top'} text="岗位供给TOP50企业"></Title>
+      <div className="top-job">
+        <div className="header">
+          <span>岗位名称</span>
+          <span>校内招聘</span>
+          <span>学校实训</span>
+          <span>总岗位数</span>
+          <span>排名</span>
+        </div>
+        <div className="job-list school-scroll">
+          {
+            jobList.map(item => {
+              return <div>
+                <div>{item.name}</div>
+                <div>{item.inSchool}</div>
+                <div>{item.train}</div>
+                <div>{item.total}</div>
+                <div>{item.rank}</div>
+              </div>
+            })
+          }
+        </div>
+      </div>
       <Title className={'wrap-top'} text="在岗人数动态分析"></Title>
+      <div className="top-train">
+        <div className="header">
+          <span>岗位</span>
+          <span>数量</span>
+          <span>未实训人数（人）</span>
+          <span>已实训人数（人）</span>
+        </div>
+        <div className="job-list school-scroll">
+          {
+            jobList.map(item => {
+              return <div>
+                <div>{item.name}</div>
+                <div>{item.inSchool}</div>
+                <div>{item.train}</div>
+                <div>{item.total}</div>
+              </div>
+            })
+          }
+        </div>
+      </div>
     </div>
     <div className="center">
       <div className="china-map">
