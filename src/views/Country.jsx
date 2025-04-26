@@ -253,6 +253,7 @@ const Country = () => {
           areaColor: params => pickColor(params.name)    // ← 按省名哈希挑色 
         },
         data,
+        zoom: 1.2,
         emphasis: {
           itemStyle: {
             borderColor: '#FF8A00',

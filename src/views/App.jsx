@@ -20,7 +20,7 @@ function App() {
         }
       }
     }}>
-      <Watermark content="Stew" font={{ color: "#ffffff20" }}>
+      <Watermark content="Stew" font={{ color: "rgba(255,255,255,0.2)" }}>
         <Layout>
           <div className="outlet">
 

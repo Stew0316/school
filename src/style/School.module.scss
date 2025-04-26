@@ -1,0 +1,163 @@
+.school {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  padding: 0 49px;
+  position: relative;
+  box-sizing: border-box;
+  background: url("@/assets/school.png") no-repeat;
+  :global {
+    .left {
+      width: 430px;
+      padding-top: 90px;
+      .peoples {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 16px;
+        .people-wrap {
+          min-width: 185px;
+          display: flex;
+          align-items: center;
+          img {
+            margin-right: 30px;
+          }
+          .people-text {
+            div:nth-child(1) {
+              color: #18e2f5;
+              font-family: "youshe";
+              font-size: 24px;
+              margin-bottom: 6px;
+            }
+            div:nth-child(2) {
+              font-size: 18px;
+              color: #c4c7c8;
+            }
+          }
+        }
+      }
+      .images {
+        display: flex;
+        gap: 15px;
+      }
+    }
+    .center {
+      padding: 114px 30px 0;
+      flex: 1;
+      .center-data {
+        display: flex;
+        text-align: center;
+        justify-content: space-between;
+        align-items: end;
+        padding: 15px 20px;
+        background-color: rgba(5, 17, 56, 0.5);
+        .center-data-item {
+          .numbers > div {
+            width: 48px;
+            font-size: 40px;
+            font-family: "youshe";
+          }
+          .center-data-text {
+            margin-top: 18px;
+            font-size: 24px;
+            font-family: "youshe";
+          }
+        }
+        // .center-data-center {
+        //   .numbers > div {
+        //     width: 66px;
+        //     font-size: 40px;
+        //   }
+        // }
+      }
+      .center-back {
+        position: fixed;
+        z-index: 15;
+        bottom: 12px;
+        width: 798px;
+        bottom: 12px;
+        left: calc(50% - 399px);
+        .center-back-text {
+          text-align: justify;
+          font-size: 96px;
+          font-family: "youshe";
+          line-height: 128px;
+        }
+        .back {
+          display: flex;
+          align-items: center;
+
+          img {
+            margin-right: 5px;
+            cursor: pointer;
+          }
+          span {
+            cursor: pointer;
+            font-size: 18px;
+            font-family: "youshe";
+          }
+        }
+      }
+    }
+    .right {
+      padding-top: 90px;
+      width: 430px;
+      .comp-name {
+        line-height: 30px;
+        & > div {
+          display: flex;
+          text-align: center;
+          flex: 0 0 50%;
+          & > div {
+            flex: 1;
+          }
+          & > div:nth-child(2n + 1) {
+            box-sizing: border-box;
+            border-right: 1px solid rgba(255, 255, 255, 0.8);
+          }
+          & > div:nth-child(2n) {
+            color: #ffd03b;
+          }
+        }
+        .line-stripe {
+          background: rgba(35, 58, 103, 0.2);
+        }
+      }
+    }
+    .headers {
+      display: flex;
+      & > span {
+        flex: 0 0 33.33%;
+        text-align: center;
+        line-height: 35px;
+        color: #ffffffe6;
+      }
+    }
+    .headers-scr {
+      width: calc(100% - 12px);
+    }
+    .table-wrap {
+      height: 175px;
+      overflow-y: auto;
+      .table-item {
+        line-height: 35px;
+        color: #ffffffe6;
+        display: flex;
+        & > span {
+          flex: 0 0 33.33%;
+          text-align: center;
+        }
+      }
+      .table-stripe {
+        background: rgba(35, 58, 103, 0.2);
+      }
+    }
+    .school-coin {
+      background: url("@/assets/hexagon.png") no-repeat center / 20px 20px;
+      line-height: 20px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+}

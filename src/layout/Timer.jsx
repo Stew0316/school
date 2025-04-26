@@ -25,7 +25,7 @@ const Timer = ({ className }) => {
   }, [])
   return <div className={className}>
     <span className="weeks">{dayjs().format('YYYY.MM.DD')} 星期{weekMap[dayjs().weekday()]}</span>
-    <span>{time}</span>
+    <span className="youshe">{time}</span>
   </div>
 }
 

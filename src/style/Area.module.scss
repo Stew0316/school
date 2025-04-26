@@ -6,6 +6,7 @@
   box-sizing: border-box;
   position: relative;
   background: url("@/assets/background.png") no-repeat;
+  justify-content: space-evenly;
   :global {
     .center {
       width: 877px;
@@ -93,8 +94,8 @@
           .plan-legend {
             background: linear-gradient(
               to right,
-              /* 横向由左向右渐变 */ #25519c71,
-              /* 最左侧 8 位十六进制，透明度 44% */ #488bff00
+              /* 横向由左向右渐变 */ rgba(37, 81, 156, 0.71),
+              /* 最左侧 8 位十六进制，透明度 44% */ rgba(72, 139, 255, 0)
             );
             margin-bottom: 48px;
             line-height: 30px;

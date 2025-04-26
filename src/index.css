@@ -9,20 +9,28 @@
 }
 .text {
   font-size: 20px;
-  /* font-style: italic; */
-  /* font-weight: bold; */
   font-family: "youshe";
   font-weight: 400;
   font-style: normal;
   color: #f8fcff;
-  background: linear-gradient(
-    to bottom,
-    #ffffff,
-    #77baff
-  ); /* 从红到蓝，从上到下 */
+  background: linear-gradient(to bottom, #ffffff, #77baff);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   text-shadow: 1px 3px 2px #f8fcff10;
+}
+.text-yellow .text {
+  font-size: 20px;
+  font-family: "youshe";
+  font-weight: 400;
+  font-style: normal;
+  background: linear-gradient(to bottom, #b66807 0%, #b66807 20%, #ffffff 100%);
+  /* 裁切背景到文字 */
+  background-clip: text;
+  -webkit-background-clip: text;
+  /* 文字透明，显示背景 */
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 1px 3px 2px #f8fcff40;
 }
 .school-table .header {
   display: flex;
@@ -118,6 +126,9 @@
 .wrap-top {
   margin-top: 15px;
 }
+.wrap-10 {
+  margin-top: 10px;
+}
 .warp-20 {
   margin-top: 20px;
 }
@@ -143,7 +154,7 @@
   top: var(--top);
 }
 .map-tooltip-content {
-  background: #00000090;
+  background: rgba(0, 0, 0, 0.9);
   padding: 9px;
 }
 .map-tooltip-content .area {
@@ -152,7 +163,7 @@
 }
 .map-tooltip-content .school-count {
   line-height: 30px;
-  color: #ffffff90;
+  color: rgba(255, 255, 255, 0.9);
   font-size: 14px;
 }
 .numbers {
@@ -163,7 +174,8 @@
   aspect-ratio: 50/65;
   line-height: 1;
   margin-right: 10px;
-  background: #01175233 url("@/assets/count.png") no-repeat center / 100% 100%;
+  background: rgba(1, 23, 82, 0.33) url("@/assets/count.png") no-repeat center /
+    100% 100%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -194,7 +206,7 @@
   height: 42px;
   text-align: center;
   line-height: 42px;
-  background: linear-gradient(180deg, #0b2e4a, #0b2d4857);
+  background: linear-gradient(180deg, #0b2e4a, rgba(11, 45, 72, 0.57));
   margin-right: 15px;
   transform: skew(-10deg);
   font-size: 18px;
