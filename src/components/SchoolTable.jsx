@@ -9,8 +9,8 @@ const SchoolTable = ({ data, lineHeight, className }) => {
       {
         data.map((item, index) => {
           return <div className="school-item" key={index}>
-            <span className="name"><span>{item.name}</span></span>
-            <span className="count">{item.count}</span>
+            <span className="name"><span>{item.school_name}</span></span>
+            <span className="count">{item.month_sale}</span>
             <span>{item.rank}</span>
           </div>
         })

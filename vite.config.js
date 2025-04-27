@@ -19,7 +19,7 @@ export default ({ mode }) => {
           changeOrigin: true,
           // rewrite: path => path.replace(/^\/api/, ''),
           //本地localhost
-          target: "http://localhost:8000",
+          target: "https://www.mengpengkeji.com",
         },
       },
     },

@@ -15,6 +15,16 @@ import BottomTab from "@/layout/BototomTab";
 import goleft from "@/assets/go-left.png"
 import goright from "@/assets/go-right.png"
 import people from "@/assets/people.png"
+import { getFlowPool, getEntrepreneurStar, getOnlineSale, getOfflineSale, getOnlineData, getProvideJobTopCompany, getTopSchoolSale } from "@/api/req";
+function chunkBySix(arr) {
+  const result = [];
+  for (let i = 0; i < arr.length; i += 6) {
+    // 从 i 开始，截取最多 6 个元素
+    result.push(arr.slice(i, i + 6));  // slice 不会修改原数组 :contentReference[oaicite:0]{index=0}
+  }
+  return result;
+}
+
 echarts.use([MapChart, TooltipComponent, VisualMapComponent, GeoComponent, CanvasRenderer]);
 echarts.registerMap('china', chinaJson);
 const COLORS = ['#1067B3', '#133780', '#10184D'];
@@ -44,6 +54,8 @@ const gradientColor1 = new echarts.graphic.LinearGradient(
   false
 );
 const Country = () => {
+  const [flow, setFlow] = useState([]);
+  const [saleLine, setSaleLine] = useState([]);
   const [jobList, setJobList] = useState([
     {
       name: "岗位名称",
@@ -82,32 +94,7 @@ const Country = () => {
     },
   ]);
   const CarouselRef = useRef(null);
-  const [topData, setTopData] = useState([
-    {
-      img: people,
-      name: "TOP-1 姓名"
-    },
-    {
-      img: people,
-      name: "TOP-1 姓名"
-    },
-    {
-      img: people,
-      name: "TOP-1 姓名"
-    },
-    {
-      img: people,
-      name: "TOP-1 姓名"
-    },
-    {
-      img: people,
-      name: "TOP-1 姓名"
-    },
-    {
-      img: people,
-      name: "TOP-1 姓名"
-    },
-  ]);
+  const [topData, setTopData] = useState([]);
   const prevIndex = useRef(null);
   const [tipData, setTipData] = useState({});
   const [showTip, setShowTip] = useState(false);
@@ -162,8 +149,11 @@ const Country = () => {
   const [seaChart, setSeaChart] = useState(null)
   const seaOp = useMemo(() => {
     return {
+      tooltip: {
+        trigger: 'axis',
+      },
       grid: {
-        top: '2%',
+        top: '3%',
         left: 0,
         right: 0,
         bottom: 0, //下边距
@@ -171,14 +161,21 @@ const Country = () => {
       },
       xAxis: {
         type: 'category',
-        data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+        axisLabel: {
+          interval: 0,
+          color: '#EFF4FF'
+        },
+        data: flow.map(item => item.channel)
       },
       yAxis: {
-        type: 'value'
+        type: 'value',
+        axisLabel: {
+          color: '#EFF4FF'
+        },
       },
       series: [
         {
-          data: [120, 200, 150, 80, 70, 110, 130],
+          data: flow.map(item => item.num),
           type: 'bar',
           barMaxWidth: 20,
           itemStyle: {
@@ -187,12 +184,15 @@ const Country = () => {
         }
       ]
     }
-  }, [channelData])
+  }, [flow])
   const [saleChart, setSaleChart] = useState(null)
   const saleOp = useMemo(() => {
     return {
+      tooltip: {
+        trigger: 'axis',
+      },
       grid: {
-        top: '2%',
+        top: '3%',
         left: 0,
         right: 0,
         bottom: 0, //下边距
@@ -200,14 +200,21 @@ const Country = () => {
       },
       xAxis: {
         type: 'category',
-        data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+        data: saleLine.map(item => item.product),
+        axisLabel: {
+          interval: 0,
+          color: '#EFF4FF'
+        }
       },
       yAxis: {
-        type: 'value'
+        type: 'value',
+        axisLabel: {
+          color: '#EFF4FF'
+        }
       },
       series: [
         {
-          data: [120, 200, 150, 80, 70, 110, 130],
+          data: saleLine.map(item => item.data1),
           type: 'bar',
           barMaxWidth: 20,
           itemStyle: {
@@ -216,7 +223,7 @@ const Country = () => {
         }
       ]
     }
-  }, [channelData])
+  }, [saleLine])
   const [chinaChart, setChinaChart] = useState(null)
   const chinaOp = useMemo(() => {
     const data = chinaJson.features.map((feat, idx) => ({
@@ -319,6 +326,29 @@ const Country = () => {
     setSeaChart(initChart(".country-sea"));
     setSaleChart(initChart(".line-sale"));
     setChinaChart(initChart(".china"));
+    getFlowPool({}).then(res => {
+      setFlow(res.data.source)
+    })
+    getEntrepreneurStar({}).then(res => {
+      setTopData(res.data.source)
+    })
+    getOnlineSale({}).then(res => {
+      console.log(res)
+    })
+    getOfflineSale().then(res => {
+      console.log(res)
+    })
+    getOnlineData({}).then(res => {
+      // console.log(11, res)
+      setSaleLine(res.data.source)
+    })
+    getProvideJobTopCompany({}).then(res => {
+      // console.log(222, res)
+      setJobList(res.data.source)
+    })
+    getTopSchoolSale({}).then(res => {
+      setTableData(res.data.source)
+    })
   }, [])
   return <div className={style.country}>
     <div className="left">
@@ -328,26 +358,20 @@ const Country = () => {
       <div className="img-slider">
         <img onClick={() => CarouselRef.current.prev()} className="img-slider-left" src={goleft} alt="" />
         <Carousel ref={CarouselRef} arrows={false} dots={false} draggable={true} autoplay={true} >
-          <div className="img-slider-item">
-            {
-              topData.map(item => {
-                return <div className="img-slider-item-item">
-                  <img src={item.img} alt="" />
-                  <div>{item.name}</div>
-                </div>
-              })
-            }
-          </div>
-          <div className="img-slider-item">
-            {
-              topData.map(item => {
-                return <div className="img-slider-item-item">
-                  <img src={item.img} alt="" />
-                  <div>{item.name}</div>
-                </div>
-              })
-            }
-          </div>
+          {
+            chunkBySix(topData).map(item => {
+              return <div className="img-slider-item">
+                {
+                  item.map(value => {
+                    return <div className="img-slider-item-item">
+                      <img src={value.avatar} alt="" />
+                      <div>{value.user_name}</div>
+                    </div>
+                  })
+                }
+              </div>
+            })
+          }
         </Carousel>
         <img onClick={() => CarouselRef.current.next()} className="img-slider-right" src={goright} alt="" />
       </div>
@@ -364,10 +388,10 @@ const Country = () => {
           {
             jobList.map(item => {
               return <div>
-                <div>{item.name}</div>
+                <div>{item.company_name}</div>
                 <div>{item.inSchool}</div>
-                <div>{item.train}</div>
-                <div>{item.total}</div>
+                <div>{item.job_name}</div>
+                <div>{item.job_num}</div>
                 <div>{item.rank}</div>
               </div>
             })
@@ -420,9 +444,9 @@ const Country = () => {
       <Title text="全国流量池"></Title>
       <div className="country-sea line-data"></div>
       <Title className={'warp-20'} text="线上销售额数据"></Title>
-      <div className="range">
+      {/* <div className="range">
         <RangePicker className="range-picker" />
-      </div>
+      </div> */}
       <div className="line-sale line-data"></div>
       <Title className={'warp-20'} text="线下销售额数据"></Title>
       <div className="create">

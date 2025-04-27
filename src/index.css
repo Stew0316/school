@@ -123,6 +123,7 @@
 .school-scroll::-webkit-scrollbar-corner {
   background: transparent; /* 拐角透明 */
 }
+
 .wrap-top {
   margin-top: 15px;
 }
@@ -196,12 +197,20 @@
 .bot-tab img {
   width: 44px;
   height: 44px;
+  cursor: pointer;
 }
 .bot-tab .bot-wrap {
-  display: flex;
-  align-items: center;
+  /* display: flex; */
+  /* align-items: center; */
+  overflow-x: scroll;
+  width: 673px;
+  white-space: nowrap;
+}
+.bot-tab .bot-wrap::-webkit-scrollbar {
+  display: none;
 }
 .bot-tab .bot-wrap div {
+  display: inline-block;
   width: 117px;
   height: 42px;
   text-align: center;
@@ -210,6 +219,7 @@
   margin-right: 15px;
   transform: skew(-10deg);
   font-size: 18px;
+  cursor: pointer;
 }
 .bot-tab .bot-wrap div:last-child {
   margin-right: 0;
