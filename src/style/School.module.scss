@@ -24,7 +24,6 @@
           }
           .people-text {
             div:nth-child(1) {
-              color: #18e2f5;
               font-family: "youshe";
               font-size: 24px;
               margin-bottom: 6px;
@@ -32,6 +31,18 @@
             div:nth-child(2) {
               font-size: 18px;
               color: #c4c7c8;
+            }
+            .text11 {
+              color: #18e2f5;
+            }
+            .text12 {
+              color: #f5a603;
+            }
+            .text13 {
+              color: #f9f00f;
+            }
+            .text14 {
+              color: #fcfdff;
             }
           }
         }
@@ -158,6 +169,41 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
+    }
+    .header-right {
+      background: rgba(46, 123, 224, 0.4);
+    }
+    .company-wrap {
+      max-height: 198px;
+      overflow-y: auto;
+    }
+    .company-item {
+      .company-name {
+        padding: 0 12px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .top3 {
+        color: #ffd03b;
+      }
+      span {
+        font-size: 14px;
+      }
+      .name {
+        margin-left: 20px;
+      }
+      .top3-icon {
+        width: 20px;
+        height: 24px;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        background: url("@/assets/hexagon.png") no-repeat center / 20px 24px;
+      }
+      .top3-text {
+        color: #ffd03b;
+      }
     }
   }
 }

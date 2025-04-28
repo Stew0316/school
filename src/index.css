@@ -123,7 +123,12 @@
 .school-scroll::-webkit-scrollbar-corner {
   background: transparent; /* 拐角透明 */
 }
-
+.school-scroll2::-webkit-scrollbar-thumb {
+  border-radius: 6px; /* 圆角滑块 */
+  background: linear-gradient(135deg, #fece3b, #683526); /* 渐变色 */
+  border: 2px solid transparent; /* 让背景透出轨道“透明”效果 */
+  background-clip: content-box; /* 保证边框透明区域可见 */
+}
 .wrap-top {
   margin-top: 15px;
 }

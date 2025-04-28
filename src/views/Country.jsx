@@ -15,6 +15,7 @@ import BottomTab from "@/layout/BototomTab";
 import goleft from "@/assets/go-left.png"
 import goright from "@/assets/go-right.png"
 import people from "@/assets/people.png"
+import emit from "@/utils/emit";
 import { getFlowPool, getEntrepreneurStar, getOnlineSale, getOfflineSale, getOnlineData, getProvideJobTopCompany, getTopSchoolSale } from "@/api/req";
 function chunkBySix(arr) {
   const result = [];
@@ -58,41 +59,42 @@ const Country = () => {
   const [saleLine, setSaleLine] = useState([]);
   const [jobList, setJobList] = useState([
     {
-      name: "岗位名称",
-      inSchool: "200",
-      train: "3000",
-      total: "200",
+      name: "库存岗",
+      inSchool: "20",
+      train: "2120",
+      total: "20",
       rank: "1"
     },
     {
-      name: "岗位名称",
-      inSchool: "200",
-      train: "3000",
-      total: "200",
+      name: "理货岗",
+      inSchool: "210",
+      train: "3870",
+      total: "30",
       rank: "1"
     },
     {
-      name: "岗位名称",
-      inSchool: "200",
-      train: "3000",
-      total: "200",
+      name: "仓库岗",
+      inSchool: "300",
+      train: "13000",
+      total: "20",
       rank: "1"
     },
     {
-      name: "岗位名称",
-      inSchool: "200",
-      train: "3000",
-      total: "200",
+      name: "财务岗",
+      inSchool: "30",
+      train: "50",
+      total: "40",
       rank: "1"
     },
     {
-      name: "岗位名称",
+      name: "保洁岗",
       inSchool: "200",
       train: "3000",
-      total: "200",
+      total: "50",
       rank: "1"
     },
   ]);
+  const [top50, setTop50] = useState([]);
   const CarouselRef = useRef(null);
   const [topData, setTopData] = useState([]);
   const prevIndex = useRef(null);
@@ -344,7 +346,7 @@ const Country = () => {
     })
     getProvideJobTopCompany({}).then(res => {
       // console.log(222, res)
-      setJobList(res.data.source)
+      setTop50(res.data.source)
     })
     getTopSchoolSale({}).then(res => {
       setTableData(res.data.source)
@@ -386,7 +388,7 @@ const Country = () => {
         </div>
         <div className="job-list school-scroll">
           {
-            jobList.map(item => {
+            top50.map(item => {
               return <div>
                 <div>{item.company_name}</div>
                 <div>{item.inSchool}</div>
@@ -460,22 +462,22 @@ const Country = () => {
         <div className="create-item">
           <img className="create-img" src={create1} alt="" />
           <div className="create-info">
-            <div>创业店</div>
-            <div>20</div>
+            <div>电商店</div>
+            <div>120</div>
           </div>
         </div>
         <div className="create-item">
           <img className="create-img" src={create1} alt="" />
           <div className="create-info">
-            <div>创业店</div>
-            <div>20</div>
+            <div>衣服店</div>
+            <div>220</div>
           </div>
         </div>
         <div className="create-item">
           <img className="create-img" src={create1} alt="" />
           <div className="create-info">
-            <div>创业店</div>
-            <div>20</div>
+            <div>线下店</div>
+            <div>240</div>
           </div>
         </div>
       </div>

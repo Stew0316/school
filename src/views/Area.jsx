@@ -11,6 +11,8 @@ import { Progress } from "antd"
 import chinaJson from '@/assets/china.json';
 import { MapChart } from 'echarts/charts';
 import { CanvasRenderer } from 'echarts/renderers';
+import { useNavigate } from "react-router";
+import emit from "@/utils/emit.js";
 import { TooltipComponent, VisualMapComponent, GeoComponent } from 'echarts/components';
 echarts.use([MapChart, TooltipComponent, VisualMapComponent, GeoComponent, CanvasRenderer]);
 echarts.registerMap('china', chinaJson);
@@ -30,121 +32,38 @@ const initChart = (classname) => {
 };
 
 const Area = () => {
+  const nav = useNavigate()
   const [top50List, setTop50List] = useState([
-    {
-      name: "海澜之家",
-      count: 200
-    },
-    {
-      name: "海澜之家",
-      count: 200
-    },
-    {
-      name: "海澜之家",
-      count: 200
-    },
-    {
-      name: "海澜之家",
-      count: 200
-    },
-    {
-      name: "海澜之家",
-      count: 200
-    },
-    {
-      name: "海澜之家",
-      count: 200
-    },
-    {
-      name: "海澜之家",
-      count: 200
-    },
-    {
-      name: "海澜之家",
-      count: 200
-    },
-    {
-      name: "海澜之家",
-      count: 200
-    },
-    {
-      name: "海澜之家",
-      count: 200
-    },
-    {
-      name: "海澜之家",
-      count: 200
-    },
-    {
-      name: "海澜之家",
-      count: 200
-    },
-  ]);
+    { name: "国家电网有限公司", count: 98 },    // 榜首国企之一 :contentReference[oaicite:0]{index=0}
+    { name: "中国石油化工集团有限公司", count: 91 }, // 中国500强第二 :contentReference[oaicite:1]{index=1}
+    { name: "中国石油天然气集团有限公司", count: 87 }, // 中国500强第三 :contentReference[oaicite:2]{index=2}
+    { name: "中国建筑集团有限公司", count: 82 },   // 中国500强第四 :contentReference[oaicite:3]{index=3}
+    { name: "中国工商银行股份有限公司", count: 75 }, // 中国500强第五 :contentReference[oaicite:4]{index=4}
+    { name: "中国建设银行股份有限公司", count: 68 }, // 中国500强第六 :contentReference[oaicite:5]{index=5}
+    { name: "中国农业银行股份有限公司", count: 62 }, // 中国500强第七 :contentReference[oaicite:6]{index=6}
+    { name: "中国移动通信集团有限公司", count: 55 }, // 中国500强中排名第16 
+    { name: "中国平安保险（集团）股份有限公司", count: 47 }, // 中国500强第14 
+    { name: "阿里巴巴（中国）有限公司", count: 33 },   // 民营企业500强第2 :contentReference[oaicite:7]{index=7}
+    { name: "腾讯控股有限公司", count: 21 },        // 民营企业500强第6 :contentReference[oaicite:8]{index=8}
+    { name: "华为投资控股有限公司", count: 10 }     // 民营企业500强第4 :contentReference[oaicite:9]{index=9}
+  ])
   const [tipData, setTipData] = useState({});
   const [showTip, setShowTip] = useState(false);
   const [chinaData, setchinaData] = useState([]);
   const [chinaChart, setChinaChart] = useState(null);
   const [tableData, setTableData] = useState([
-    {
-      name: "北京大学北京大学北京大学",
-      count: 8000,
-      rank: 1
-    },
-    {
-      name: "北京大学北京大学北京大学",
-      count: 8000,
-      rank: 1
-    },
-    {
-      name: "北京大学北京大学北京大学",
-      count: 8000,
-      rank: 1
-    },
-    {
-      name: "北京大学北京大学北京大学",
-      count: 8000,
-      rank: 1
-    },
-    {
-      name: "北京大学北京大学北京大学",
-      count: 8000,
-      rank: 1
-    },
-    {
-      name: "北京大学北京大学北京大学",
-      count: 8000,
-      rank: 1
-    },
-    {
-      name: "北京大学北京大学北京大学",
-      count: 8000,
-      rank: 1
-    },
-    {
-      name: "北京大学北京大学北京大学",
-      count: 8000,
-      rank: 1
-    },
-    {
-      name: "北京大学北京大学北京大学",
-      count: 8000,
-      rank: 1
-    },
-    {
-      name: "北京大学北京大学北京大学",
-      count: 8000,
-      rank: 1
-    },
-    {
-      name: "北京大学北京大学北京大学",
-      count: 8000,
-      rank: 1
-    },
-    {
-      name: "北京大学北京大学北京大学",
-      count: 8000,
-      rank: 1
-    }
+    { school_name: "浙江大学", month_sale: 9582, rank: 1 },  // 浙大 :contentReference[oaicite:0]{index=0}
+    { school_name: "上海交通大学", month_sale: 8337, rank: 2 },  // 上交大 :contentReference[oaicite:1]{index=1}
+    { school_name: "清华大学", month_sale: 7821, rank: 3 },  // 清华 :contentReference[oaicite:2]{index=2}
+    { school_name: "北京大学", month_sale: 7294, rank: 4 },  // 北大 :contentReference[oaicite:3]{index=3}
+    { school_name: "中山大学", month_sale: 6745, rank: 5 },  // 中大 :contentReference[oaicite:4]{index=4}
+    { school_name: "华中科技大学", month_sale: 6208, rank: 6 },  // 华科大／华中大 :contentReference[oaicite:5]{index=5}
+    { school_name: "中南大学", month_sale: 5873, rank: 7 },  // 中南大 :contentReference[oaicite:6]{index=6}
+    { school_name: "复旦大学", month_sale: 5430, rank: 8 },  // 复旦 :contentReference[oaicite:7]{index=7}
+    { school_name: "中国科学技术大学", month_sale: 4987, rank: 9 },  // 中国科大 :contentReference[oaicite:8]{index=8}
+    { school_name: "四川大学", month_sale: 4521, rank: 10 }, // 川大 :contentReference[oaicite:9]{index=9}
+    { school_name: "西安交通大学", month_sale: 3167, rank: 11 }, // 西交大 :contentReference[oaicite:10]{index=10}
+    { school_name: "武汉大学", month_sale: 2784, rank: 12 }  // 武大 :contentReference[oaicite:11]{index=11}
   ])
   const chinaOp = useMemo(
     () => {
@@ -305,7 +224,7 @@ const Area = () => {
         xAxis: {
           type: 'category',
           boundaryGap: false,
-          data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+          data: ['山东', '江苏', '安徽', '江西', '福建', '上海', '台湾']
         },
         yAxis: {
           type: 'value'
@@ -360,7 +279,12 @@ const Area = () => {
     setAreaChart(initChart(`.left-plans`));
     setProvinceChart(initChart(`.right-plans`));
   }, [])
-
+  const handleKeyUp = (e) => {
+    if (e.key === 'Enter') {
+      emit.emit('setName', '江苏建筑职业技术学院')
+      nav('/school')
+    }
+  };
   return <div className={style.area}>
     <div className="center">
 
@@ -380,7 +304,7 @@ const Area = () => {
       </div>
       <div className="china-map">
         <div className="map-text">
-          <input type="text" placeholder="请输入学校名称" />
+          <input onKeyUp={handleKeyUp} type="text" placeholder="请输入学校名称" />
           <SearchOutlined style={{
             color: "#1786ef",
             fontSize: '24px'
@@ -433,7 +357,7 @@ const Area = () => {
                   </span>
                   <span className={`count ${index <= 2 && 'top3'}`}>岗位/{item.count}人</span>
                 </div>
-                <Progress size="small" percent={99.9} showInfo={false} strokeColor={{
+                <Progress size="small" percent={item.count} showInfo={false} strokeColor={{
                   '0%': index <= 2 ? '#FF6D3E35' : '#EFF4FF35',
                   '100%': index <= 2 ? '#FFD03B' : '#EFF4FF'
                 }} />
