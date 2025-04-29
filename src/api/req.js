@@ -40,14 +40,6 @@ export function regionProvinceTree(params) {
   });
 }
 
-export function getOnlineSale(params) {
-  return service({
-    method: "get",
-    url: "/getOnlineSale",
-    params,
-  });
-}
-
 export function getOfflineSale(params) {
   return service({
     method: "get",
@@ -58,7 +50,7 @@ export function getOfflineSale(params) {
 export function getOnlineData(params) {
   return service({
     method: "get",
-    url: "/getOnlineData",
+    url: "/getOnlineSale",
     params,
   });
 }
@@ -74,6 +66,29 @@ export function getTopSchoolSale(params) {
   return service({
     method: "get",
     url: "/getTopSchoolSale",
+    params,
+  });
+}
+
+export function getOnJobNum(params) {
+  return service({
+    method: "get",
+    url: "/getOnJobNum",
+    params,
+  });
+}
+
+export function getIndexData(params) {
+  return service({
+    method: "get",
+    url: "/getIndexData",
+    params,
+  });
+}
+export function getProvinceProcessing(params) {
+  return service({
+    method: "get",
+    url: "/getProvinceProcessing",
     params,
   });
 }

@@ -4,6 +4,8 @@ import { regionProvinceTree } from "@/api/req"
 import { useState, useEffect, useRef } from "react"
 import { useNavigate } from "react-router"
 import emit from "@/utils/emit.js"
+import store from "@/store/school"
+import { observer } from "mobx-react"
 const BottomTab = () => {
   const [areaList, setAreaList] = useState([])
   const nav = useNavigate()
@@ -12,8 +14,14 @@ const BottomTab = () => {
     wrap.current.scrollBy({ left: val, behavior: 'smooth' });
   }
   const goArea = (item) => {
-    emit.emit('setName', `京校园云${item.name}大数据中台`)
-    nav('/area')
+    store.updateSelectArea(item.id)
+    store.updateSelectAreaName(item.name)
+    store.updateName(`京校园云${item.name}大数据中台`)
+    if (item.id != -1) {
+      nav('/area')
+    } else {
+      nav('/')
+    }
   }
   useEffect(() => {
     regionProvinceTree().then(res => {
@@ -27,7 +35,7 @@ const BottomTab = () => {
         }
         list.push(obj)
       }
-      setAreaList(list)
+      setAreaList([{ name: '全国', id: -1, sub_provinces: [] }, ...list])
     })
   }, [])
   return <div className="bot-tab">
@@ -35,7 +43,7 @@ const BottomTab = () => {
     <div className="bot-wrap" ref={wrap}>
       {
         areaList.map((item, index) => {
-          return <div onClick={() => goArea(item)}>{item.name}</div>
+          return <div className={store.selectArea == item.id ? 'active' : ''} onClick={() => goArea(item)}>{item.name}</div>
         })
       }
     </div>
@@ -43,4 +51,4 @@ const BottomTab = () => {
   </div>
 }
 
-export default BottomTab
+export default observer(BottomTab)

@@ -2,6 +2,9 @@ import Title from "@/layout/Title";
 import style from "@/style/Country.module.scss"
 import SchoolTable from "@/components/SchoolTable";
 import create1 from "@/assets/create1.png"
+import create2 from "@/assets/create2.png"
+import create3 from "@/assets/create3.png"
+import create4 from "@/assets/create4.png"
 import { DatePicker, Space, Carousel } from 'antd';
 import * as echarts from 'echarts';
 import { MapChart } from 'echarts/charts';                       // 地图图表
@@ -16,7 +19,9 @@ import goleft from "@/assets/go-left.png"
 import goright from "@/assets/go-right.png"
 import people from "@/assets/people.png"
 import emit from "@/utils/emit";
-import { getFlowPool, getEntrepreneurStar, getOnlineSale, getOfflineSale, getOnlineData, getProvideJobTopCompany, getTopSchoolSale } from "@/api/req";
+import store from "@/store/school";
+import { getFlowPool, getEntrepreneurStar, getOfflineSale, getOnlineData, getProvideJobTopCompany, getTopSchoolSale, getOnJobNum, getIndexData } from "@/api/req";
+const imgList = [create1, create2, create3, create4]
 function chunkBySix(arr) {
   const result = [];
   for (let i = 0; i < arr.length; i += 6) {
@@ -49,51 +54,21 @@ const gradientColor = new echarts.graphic.LinearGradient(
 const gradientColor1 = new echarts.graphic.LinearGradient(
   0, 0, 0, 1,                // (x1,y1)=(0,0) 顶部；(x2,y2)=(0,1) 底部 :contentReference[oaicite:1]{index=1}
   [
-    { offset: 0, color: '#0FFFF2' },   // 0% 处颜色  
-    { offset: 1, color: '#0FFFF200' }    // 100% 处颜色  
+    { offset: 1, color: '#0FFFF2' },   // 0% 处颜色  
+    { offset: 0, color: '#0FFFF200' }    // 100% 处颜色  
   ],
   false
 );
 const Country = () => {
+  const [statics, setStatics] = useState({
+    school_count: 0,
+    month_sale: 0,
+    started_num: 0
+  });
   const [flow, setFlow] = useState([]);
+  const [offLine, setOffLine] = useState([]);
   const [saleLine, setSaleLine] = useState([]);
-  const [jobList, setJobList] = useState([
-    {
-      name: "库存岗",
-      inSchool: "20",
-      train: "2120",
-      total: "20",
-      rank: "1"
-    },
-    {
-      name: "理货岗",
-      inSchool: "210",
-      train: "3870",
-      total: "30",
-      rank: "1"
-    },
-    {
-      name: "仓库岗",
-      inSchool: "300",
-      train: "13000",
-      total: "20",
-      rank: "1"
-    },
-    {
-      name: "财务岗",
-      inSchool: "30",
-      train: "50",
-      total: "40",
-      rank: "1"
-    },
-    {
-      name: "保洁岗",
-      inSchool: "200",
-      train: "3000",
-      total: "50",
-      rank: "1"
-    },
-  ]);
+  const [jobList, setJobList] = useState([]);
   const [top50, setTop50] = useState([]);
   const CarouselRef = useRef(null);
   const [topData, setTopData] = useState([]);
@@ -179,11 +154,34 @@ const Country = () => {
         {
           data: flow.map(item => item.num),
           type: 'bar',
-          barMaxWidth: 20,
+          barMaxWidth: 10,
           itemStyle: {
             color: gradientColor         // 应用同一渐变 :contentReference[oaicite:2]{index=2}
           }
-        }
+        },
+        {
+          name: "外圆",
+          type: "scatter",
+          emphasis: {
+            scale: false,
+          },
+          tooltip: {
+            show: false
+          },
+          symbol: "rect",
+          symbolSize: [16, 2],// 进度条白点
+          itemStyle: {
+            barBorderRadius: [30, 0, 0, 30],
+            color: 'rgba(255,208,59, 1)',
+            shadowColor: "rgba(255,208,59, 0.5)",
+            shadowBlur: 5,
+            borderWidth: 1,
+            opacity: 1,
+          },
+          z: 2,
+          data: flow.map(item => item.num),
+          animationDelay: 500,
+        },
       ]
     }
   }, [flow])
@@ -202,7 +200,7 @@ const Country = () => {
       },
       xAxis: {
         type: 'category',
-        data: saleLine.map(item => item.product),
+        data: saleLine.map(item => item.type),
         axisLabel: {
           interval: 0,
           color: '#EFF4FF'
@@ -216,13 +214,36 @@ const Country = () => {
       },
       series: [
         {
-          data: saleLine.map(item => item.data1),
+          data: saleLine.map(item => item.month_sale),
           type: 'bar',
           barMaxWidth: 20,
           itemStyle: {
             color: gradientColor1         // 应用同一渐变 :contentReference[oaicite:2]{index=2}
           }
-        }
+        },
+        {
+          name: "外圆",
+          type: "scatter",
+          emphasis: {
+            scale: false,
+          },
+          tooltip: {
+            show: false
+          },
+          symbol: "rect",
+          symbolSize: [16, 2],// 进度条白点
+          itemStyle: {
+            barBorderRadius: [30, 0, 0, 30],
+            color: 'rgba(15,255,242, 1)',
+            shadowColor: "rgba(15,255,242, 0.5)",
+            shadowBlur: 5,
+            borderWidth: 1,
+            opacity: 1,
+          },
+          z: 2,
+          data: saleLine.map(item => item.month_sale),
+          animationDelay: 500,
+        },
       ]
     }
   }, [saleLine])
@@ -230,6 +251,7 @@ const Country = () => {
   const chinaOp = useMemo(() => {
     const data = chinaJson.features.map((feat, idx) => ({
       name: feat.properties.name,  // 省份名
+      fullName: feat.properties.fullname,
       value: Math.random() * 1000,    // 随机示例值，可替换为真实数据
       itemStyle: {
         areaColor: COLORS[idx % COLORS.length],
@@ -277,6 +299,9 @@ const Country = () => {
     var chartDom = document.querySelector(classname);
     return echarts.init(chartDom);
   };
+  const tipClick = () => {
+    setShowTip(false)
+  }
   useEffect(() => {
     if (seaChart) {
       seaChart.setOption(seaOp);
@@ -288,21 +313,9 @@ const Country = () => {
     }
   }, [saleOp, saleChart])
   useEffect(() => {
-    let times
-    if (!times) {
-      times = setTimeout(() => {
-        setTipData({})
-        setShowTip(false)
-      }, 600)
-    }
-    return () => {
-      clearTimeout(times)
-    }
-  }, [tipData])
-  useEffect(() => {
     if (chinaChart) {
       chinaChart.setOption(chinaOp);
-      chinaChart.on('click', function (params) {
+      chinaChart.on('click', async function (params) {
         // 先取消上一次的高亮
         if (prevIndex.current != null) {
           chinaChart.dispatchAction({
@@ -319,7 +332,13 @@ const Country = () => {
         });
         prevIndex.current = params.dataIndex;
         const [x, y] = chinaChart.convertToPixel({ seriesIndex: 0 }, params.name);
-        setTipData({ x: x + 500, y: y + 100, showExpand: true, schoolCount: 8000, sales: 8000, area: params.name, expandCount: 8000 });
+        console.log(params)
+        const res = await getIndexData({
+          province: params.data.fullName
+        })
+        const data = res.data.source[0]
+        console.log(res)
+        setTipData({ x: x + 500, y: y + 100, showExpand: true, school_count: data.school_count, month_sale: data.month_sale, area: params.name, started_num: data.started_num });
         setShowTip(true)
       });
     }
@@ -334,23 +353,25 @@ const Country = () => {
     getEntrepreneurStar({}).then(res => {
       setTopData(res.data.source)
     })
-    getOnlineSale({}).then(res => {
-      console.log(res)
-    })
     getOfflineSale().then(res => {
-      console.log(res)
+      setOffLine(res.data.source)
     })
     getOnlineData({}).then(res => {
-      // console.log(11, res)
       setSaleLine(res.data.source)
     })
     getProvideJobTopCompany({}).then(res => {
-      // console.log(222, res)
       setTop50(res.data.source)
     })
     getTopSchoolSale({}).then(res => {
       setTableData(res.data.source)
     })
+    getOnJobNum({}).then(res => {
+      setJobList(res.data.source)
+    })
+    getIndexData({}).then(res => {
+      setStatics(res.data.source[0])
+    })
+    store.updateName('京东校园云全国大数据中台')
   }, [])
   return <div className={style.country}>
     <div className="left">
@@ -412,10 +433,10 @@ const Country = () => {
           {
             jobList.map(item => {
               return <div>
-                <div>{item.name}</div>
-                <div>{item.inSchool}</div>
-                <div>{item.train}</div>
-                <div>{item.total}</div>
+                <div>{item.job_name}</div>
+                <div>{item.job_num}</div>
+                <div>{item.not_started}</div>
+                <div>{item.started}</div>
               </div>
             })
           }
@@ -428,15 +449,15 @@ const Country = () => {
       </div>
       <div className="center-data">
         <div className="center-data-item">
-          <Num data={1200}></Num>
+          <Num data={statics.school_count}></Num>
           <div className="center-data-text">院校（所）</div>
         </div>
         <div className="center-data-item center-data-center">
-          <Num data={2000}></Num>
+          <Num data={statics.month_sale}></Num>
           <div className="center-data-text">月销售额（万元）</div>
         </div>
         <div className="center-data-item">
-          <Num data={4200}></Num>
+          <Num data={statics.started_num}></Num>
           <div className="center-data-text">实训人数</div>
         </div>
       </div>
@@ -452,37 +473,20 @@ const Country = () => {
       <div className="line-sale line-data"></div>
       <Title className={'warp-20'} text="线下销售额数据"></Title>
       <div className="create">
-        <div className="create-item">
-          <img className="create-img" src={create1} alt="" />
-          <div className="create-info">
-            <div>创业店</div>
-            <div>20</div>
-          </div>
-        </div>
-        <div className="create-item">
-          <img className="create-img" src={create1} alt="" />
-          <div className="create-info">
-            <div>电商店</div>
-            <div>120</div>
-          </div>
-        </div>
-        <div className="create-item">
-          <img className="create-img" src={create1} alt="" />
-          <div className="create-info">
-            <div>衣服店</div>
-            <div>220</div>
-          </div>
-        </div>
-        <div className="create-item">
-          <img className="create-img" src={create1} alt="" />
-          <div className="create-info">
-            <div>线下店</div>
-            <div>240</div>
-          </div>
-        </div>
+        {
+          offLine.map((item, index) => {
+            return <div className="create-item">
+              <img className="create-img" src={imgList[index]} alt="" />
+              <div className="create-info">
+                <div>{item.store_name}</div>
+                <div>{item.month_sale}</div>
+              </div>
+            </div>
+          })
+        }
       </div>
     </div>
-    {showTip && <Tooltip {...tipData}></Tooltip>}
+    {showTip && <Tooltip {...tipData} tipClick={() => tipClick()}></Tooltip>}
   </div>
 }
 

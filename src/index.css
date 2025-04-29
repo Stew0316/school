@@ -158,6 +158,7 @@
   padding: 7px;
   left: var(--left);
   top: var(--top);
+  cursor: pointer;
 }
 .map-tooltip-content {
   background: rgba(0, 0, 0, 0.9);

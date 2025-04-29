@@ -1,14 +1,14 @@
-const Tooltip = ({ x, y, showExpand, schoolCount, sales, area, expandCount }) => {
-  return <div className="map-tooltip" style={{
+const Tooltip = ({ x, y, showExpand, school_count, month_sale, area, started_num, tipClick }) => {
+  return <div className="map-tooltip" onClick={() => tipClick?.()} style={{
     '--left': x + 'px',
     '--top': y + 'px'
   }}>
     <div className="map-tooltip-content">
       <div className="area">{area}</div>
-      <div className="school-count">学校数量：{schoolCount}</div>
-      <div className="school-count">销售额（W）：{sales}</div>
+      <div className="school-count">学校数量：{school_count}</div>
+      <div className="school-count">销售额（W）：{month_sale}</div>
       {
-        showExpand && <div className="school-count">未拓展学校数量（所）：{expandCount}</div>
+        showExpand && <div className="school-count">未拓展学校数量（所）：{started_num}</div>
       }
     </div>
   </div>
