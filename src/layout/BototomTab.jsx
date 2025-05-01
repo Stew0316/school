@@ -35,6 +35,7 @@ const BottomTab = () => {
         }
         list.push(obj)
       }
+      store.updateAreaList(list)
       setAreaList([{ name: '全国', id: -1, sub_provinces: [] }, ...list])
     })
   }, [])

@@ -20,45 +20,16 @@ import goright from "@/assets/go-right.png"
 import people from "@/assets/people.png"
 import emit from "@/utils/emit";
 import store from "@/store/school";
+import { chunkBySix, COLORS, pickColor, gradientColor1, gradientColor } from "@/utils/common";
 import { getFlowPool, getEntrepreneurStar, getOfflineSale, getOnlineData, getProvideJobTopCompany, getTopSchoolSale, getOnJobNum, getIndexData } from "@/api/req";
 const imgList = [create1, create2, create3, create4]
-function chunkBySix(arr) {
-  const result = [];
-  for (let i = 0; i < arr.length; i += 6) {
-    // 从 i 开始，截取最多 6 个元素
-    result.push(arr.slice(i, i + 6));  // slice 不会修改原数组 :contentReference[oaicite:0]{index=0}
-  }
-  return result;
-}
+
 
 echarts.use([MapChart, TooltipComponent, VisualMapComponent, GeoComponent, CanvasRenderer]);
 echarts.registerMap('china', chinaJson);
-const COLORS = ['#1067B3', '#133780', '#10184D'];
-function pickColor(name) {
-  // 简单哈希：把字符串的 charCode 累加，然后 mod 三色数
-  let h = 0;
-  for (let i = 0; i < name.length; i++) {
-    h += name.charCodeAt(i);
-  }
-  return COLORS[h % COLORS.length];
-}
+
 const { RangePicker } = DatePicker;
-const gradientColor = new echarts.graphic.LinearGradient(
-  0, 0, 0, 1,                // (x1,y1)=(0,0) 顶部；(x2,y2)=(0,1) 底部 :contentReference[oaicite:1]{index=1}
-  [
-    { offset: 0, color: '#FFD03B' },   // 0% 处颜色  
-    { offset: 1, color: '#FFD03B00' }    // 100% 处颜色  
-  ],
-  false
-);
-const gradientColor1 = new echarts.graphic.LinearGradient(
-  0, 0, 0, 1,                // (x1,y1)=(0,0) 顶部；(x2,y2)=(0,1) 底部 :contentReference[oaicite:1]{index=1}
-  [
-    { offset: 1, color: '#0FFFF2' },   // 0% 处颜色  
-    { offset: 0, color: '#0FFFF200' }    // 100% 处颜色  
-  ],
-  false
-);
+
 const Country = () => {
   const [statics, setStatics] = useState({
     school_count: 0,
@@ -75,53 +46,7 @@ const Country = () => {
   const prevIndex = useRef(null);
   const [tipData, setTipData] = useState({});
   const [showTip, setShowTip] = useState(false);
-  const [tableData, setTableData] = useState([
-    {
-      name: "北京大学北京大学北京大学",
-      count: 8000,
-      rank: 1
-    },
-    {
-      name: "北京大学北京大学北京大学",
-      count: 8000,
-      rank: 1
-    },
-    {
-      name: "北京大学北京大学北京大学",
-      count: 8000,
-      rank: 1
-    },
-    {
-      name: "北京大学北京大学北京大学",
-      count: 8000,
-      rank: 1
-    },
-    {
-      name: "北京大学北京大学北京大学",
-      count: 8000,
-      rank: 1
-    },
-    {
-      name: "北京大学北京大学北京大学",
-      count: 8000,
-      rank: 1
-    },
-    {
-      name: "北京大学北京大学北京大学",
-      count: 8000,
-      rank: 1
-    },
-    {
-      name: "北京大学北京大学北京大学",
-      count: 8000,
-      rank: 1
-    },
-    {
-      name: "北京大学北京大学北京大学",
-      count: 8000,
-      rank: 1
-    }
-  ])
+  const [tableData, setTableData] = useState([])
   const [channelData, setChannelData] = useState([])
   const [seaChart, setSeaChart] = useState(null)
   const seaOp = useMemo(() => {
@@ -337,7 +262,6 @@ const Country = () => {
           province: params.data.fullName
         })
         const data = res.data.source[0]
-        console.log(res)
         setTipData({ x: x + 500, y: y + 100, showExpand: true, school_count: data.school_count, month_sale: data.month_sale, area: params.name, started_num: data.started_num });
         setShowTip(true)
       });
