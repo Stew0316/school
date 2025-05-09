@@ -23,7 +23,18 @@ import store from "@/store/school";
 import { chunkBySix, COLORS, pickColor, gradientColor1, gradientColor } from "@/utils/common";
 import { getFlowPool, getEntrepreneurStar, getOfflineSale, getOnlineData, getProvideJobTopCompany, getTopSchoolSale, getOnJobNum, getIndexData } from "@/api/req";
 const imgList = [create1, create2, create3, create4]
-
+function formatCount(num) {
+  // 若不是数字或小于10000，直接返回原数
+  if (typeof num !== 'number' || num < 10000) {
+    return num;
+  }
+  // 除以10000，保留1位小数
+  const value = (num / 10000).toFixed(1);
+  // 去掉末尾“.0”，如“1.0”→“1”
+  const trimmed = value.replace(/\.0$/, '');
+  // 拼接“w+”
+  return `${trimmed}W+`;
+}
 
 echarts.use([MapChart, TooltipComponent, VisualMapComponent, GeoComponent, CanvasRenderer]);
 echarts.registerMap('china', chinaJson);
@@ -304,7 +315,7 @@ const Country = () => {
       <Title className={'wrap-top'} text="全国创业之星TOP100"></Title>
       <div className="img-slider">
         <img onClick={() => CarouselRef.current.prev()} className="img-slider-left" src={goleft} alt="" />
-        <Carousel ref={CarouselRef} arrows={false} dots={false} draggable={true} autoplay={true} >
+        <Carousel ref={CarouselRef} arrows={false} dots={false} draggable={true} autoplay={true} vertical={true}>
           {
             chunkBySix(topData).map(item => {
               return <div className="img-slider-item">
@@ -403,7 +414,7 @@ const Country = () => {
               <img className="create-img" src={imgList[index]} alt="" />
               <div className="create-info">
                 <div>{item.store_name}</div>
-                <div>{item.month_sale}</div>
+                <div>{formatCount(item.month_sale)}</div>
               </div>
             </div>
           })

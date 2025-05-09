@@ -75,7 +75,7 @@ const School = () => {
       <Title text="各专业实训人数"></Title>
       <div className="peoples">
         {
-          actList.map((item, index) => {
+          actList.slice(4).map((item, index) => {
             return <div className="people-wrap">
               <img className="people-img" src={imgList[index]} alt="" />
               <div className="people-text">
@@ -177,7 +177,7 @@ const School = () => {
       <Title className="wrap-10 text-yellow" text="线下销售额数据"></Title>
       <div className="company-wrap school-scroll school-scroll2">
         {
-          offLineData.map((item, index) => {
+          offLineData.sort((a, b) => b.month_sale - a.month_sale).map((item, index) => {
             return <div className="company-item">
               <div className={`company-name ${index <= 2 ? 'company-top' : ''}`}>
                 <span className="index">

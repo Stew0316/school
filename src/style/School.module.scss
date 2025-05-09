@@ -120,8 +120,12 @@
           display: flex;
           text-align: center;
           flex: 0 0 50%;
+
           & > div {
             flex: 1;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
           }
           & > div:nth-child(2n + 1) {
             box-sizing: border-box;

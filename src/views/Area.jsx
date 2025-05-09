@@ -131,7 +131,7 @@ const Area = () => {
         color: AREA_COLOR,
         title: [
           {
-            text: total,
+            text: total > 10000 ? '1.2W' : total,
             left: 'center',
             top: '30%',
             left: "27%",
@@ -189,7 +189,7 @@ const Area = () => {
           containLabel: true
         },
         title: {
-          text: '单位:万',
+          text: '单位:所',
           textStyle: {
             color: '#B9E8FF',
             fontSize: 12
@@ -214,12 +214,11 @@ const Area = () => {
           borderColor: "transparent",
           formatter: (params) => {
             const value = params[0]
-            console.log(params)
             return `
               <div style='background-color: #ffffff15;'>
                 <div style="text-align: center;color:#B9E8FF;font-size: 16px;">${value.axisValueLabel}</div>
-                <div style="text-align: center;color:#48F9FF;font-size: 12px;">已做学校数${value.data.value}</div>
-                <div style="text-align: center;color:#FF8A48;font-size: 12px;">未做学校数${value.data.plan}</div>
+                <div style="text-align: center;color:#FF8A48;font-size: 12px;">已做学校数${value.data.value}</div>
+                <div style="text-align: center;color:#48F9FF;font-size: 12px;">未做学校数${value.data.plan}</div>
               </div>
             `
           }

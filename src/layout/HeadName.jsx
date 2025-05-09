@@ -1,12 +1,16 @@
-import { useState, useEffect } from "react"
-import emit from "@/utils/emit.js"
-import store from "@/store/school"
-import { observer } from "mobx-react"
-const HeadName = ({ className }) => {
-  console.log('1111 act')
-  return <div className={className}>
-    <div className="text">{store.name}</div>
-  </div>
-}
+import { observer } from "mobx-react";
+import store from "@/store/school";
 
-export default observer(HeadName)
+const HeadName = ({ className }) => {
+  return (
+    <div className={className}>
+      <marquee
+        direction="down"
+      >
+        <div className="text">{store.name}</div>
+      </marquee>
+    </div>
+  );
+};
+
+export default observer(HeadName);

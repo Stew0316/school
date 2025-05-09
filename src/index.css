@@ -72,7 +72,7 @@
   padding-left: 16px;
 }
 .school-item .name span {
-  max-width: 9em;
+  max-width: 12em;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
