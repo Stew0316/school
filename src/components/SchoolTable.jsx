@@ -1,3 +1,5 @@
+import Slider from './Slider'
+
 const SchoolTable = ({ data, lineHeight, className }) => {
   const goSchool = item => {
     console.log(item)
@@ -8,16 +10,14 @@ const SchoolTable = ({ data, lineHeight, className }) => {
       <span>销售额度</span>
       <span>排名</span>
     </div>
-    <div className="school-list school-scroll">
-      {
-        data.map((item, index) => {
-          return <div className="school-item" key={index} onClick={() => goSchool(item)}>
-            <span className="name"><span>{item.school_name}</span></span>
-            <span className="count">{item.month_sale}</span>
-            <span>{item.rank}</span>
-          </div>
-        })
-      }
+    <div >
+      <Slider className='school-list' data={data} slideClassName='school-item' renderSlide={(item) => {
+        return <div onClick={() => goSchool(item)}>
+          <span className="name"><span>{item.school_name}</span></span>
+          <span className="count">{item.month_sale}</span>
+          <span>{item.rank}</span>
+        </div>
+      }}></Slider>
     </div>
   </div>
 }

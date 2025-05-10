@@ -347,7 +347,7 @@ const Country = () => {
             top50.map(item => {
               return <div>
                 <div>{item.company_name}</div>
-                <div>{item.inSchool}</div>
+                <div>{item.in_school_hire}</div>
                 <div>{item.job_name}</div>
                 <div>{item.job_num}</div>
                 <div>{item.rank}</div>
