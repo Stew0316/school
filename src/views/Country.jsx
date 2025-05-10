@@ -311,7 +311,7 @@ const Country = () => {
   return <div className={style.country}>
     <div className="left">
       <Title text="TOP院校销售额排名"></Title>
-      <SchoolTable data={tableData} lineHeight={30}></SchoolTable>
+      <SchoolTable slideClassName='school-list' data={[...tableData, ...tableData]} lineHeight={30}></SchoolTable>
       <Title className={'wrap-top'} text="全国创业之星TOP100"></Title>
       <div className="img-slider">
         <img onClick={() => CarouselRef.current.prev()} className="img-slider-left" src={goleft} alt="" />

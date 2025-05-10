@@ -50,10 +50,10 @@
   font-size: 14px;
 }
 .school-list {
-  max-height: 180px;
+  height: 180px;
   overflow-y: auto;
 }
-.school-area .school-list {
+.school-area {
   height: 462px;
 }
 

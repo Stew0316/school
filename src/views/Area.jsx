@@ -398,7 +398,7 @@ const Area = () => {
       <div>
         <Title className='warp-30' text="区域TOP10院校销售额排名"></Title>
         <div className="company">
-          <SchoolTable data={tableData} lineHeight={40} className="school-area"></SchoolTable>
+          <SchoolTable slidesPerView={10} data={[...tableData, ...tableData]} lineHeight={40} className="school-area" slideClassName='school-area'></SchoolTable>
         </div>
       </div>
     </div>

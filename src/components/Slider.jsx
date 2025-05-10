@@ -27,6 +27,7 @@ const Slider = ({
     }}
     className={className}
     modules={[Autoplay, FreeMode]}
+    key={Math.random()}
   >
     {
       data.map((item, index) => {

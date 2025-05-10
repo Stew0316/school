@@ -1,8 +1,12 @@
 import Slider from './Slider'
-
-const SchoolTable = ({ data, lineHeight, className }) => {
+import store from '@/store/school'
+import { useNavigate } from 'react-router'
+const SchoolTable = ({ data, lineHeight, className, slidesPerView = 6, slideClassName }) => {
+  const nav = useNavigate()
   const goSchool = item => {
-    console.log(item)
+    store.updateName(item.school_name)
+    store.updateSchoolId(item.school_id)
+    nav('/school')
   }
   return <div className={`school-table ${className}`} style={{ '--line-height': `${lineHeight}px` }}>
     <div className="header">
@@ -11,7 +15,7 @@ const SchoolTable = ({ data, lineHeight, className }) => {
       <span>排名</span>
     </div>
     <div >
-      <Slider className='school-list' data={data} slideClassName='school-item' renderSlide={(item) => {
+      <Slider slidesPerView={slidesPerView} className={slideClassName} data={data} slideClassName='school-item' renderSlide={(item) => {
         return <div onClick={() => goSchool(item)}>
           <span className="name"><span>{item.school_name}</span></span>
           <span className="count">{item.month_sale}</span>
