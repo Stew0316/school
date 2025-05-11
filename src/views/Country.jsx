@@ -20,6 +20,7 @@ import goright from "@/assets/go-right.png"
 import people from "@/assets/people.png"
 import emit from "@/utils/emit";
 import store from "@/store/school";
+import Slider from "@/components/Slider"
 import { chunkBySix, COLORS, pickColor, gradientColor1, gradientColor } from "@/utils/common";
 import { getFlowPool, getEntrepreneurStar, getOfflineSale, getOnlineData, getProvideJobTopCompany, getTopSchoolSale, getOnJobNum, getIndexData } from "@/api/req";
 const imgList = [create1, create2, create3, create4]
@@ -342,19 +343,15 @@ const Country = () => {
           <span>总岗位数</span>
           <span>排名</span>
         </div>
-        <div className="job-list school-scroll">
-          {
-            top50.map(item => {
-              return <div>
+        <Slider slidesPerView={4} className='job-list' data={top50} slideClassName='' renderSlide={(item) => {
+        return <div className="school-item">
                 <div>{item.company_name}</div>
                 <div>{item.in_school_hire}</div>
                 <div>{item.job_name}</div>
                 <div>{item.job_num}</div>
                 <div>{item.rank}</div>
               </div>
-            })
-          }
-        </div>
+      }}></Slider>
       </div>
       <Title className={'wrap-top'} text="在岗人数动态分析"></Title>
       <div className="top-train">
@@ -364,7 +361,15 @@ const Country = () => {
           <span>未实训人数（人）</span>
           <span>已实训人数（人）</span>
         </div>
-        <div className="job-list school-scroll">
+        <Slider slidesPerView={4} className='job-list' data={jobList} slideClassName='' renderSlide={(item) => {
+        return <div className="job-list-warap">
+                <div className='job-list1'>{item.job_name}</div>
+                <div className='job-list1'>{item.job_num}</div>
+                <div className='job-list2'>{item.not_started}</div>
+                <div className='job-list2'>{item.started}</div>
+              </div>
+      }}></Slider>
+        {/* <div className="job-list school-scroll">
           {
             jobList.map(item => {
               return <div>
@@ -375,7 +380,7 @@ const Country = () => {
               </div>
             })
           }
-        </div>
+        </div> */}
       </div>
     </div>
     <div className="center">
