@@ -17,6 +17,7 @@ import { pickColor, COLORS } from "@/utils/common";
 import { getProvinceProcessing, getTalentTraining, getIndexData, getProvideJobTopCompany, getTopSchoolSale, getSchoolList } from "@/api/req";
 import { TooltipComponent, VisualMapComponent, GeoComponent } from 'echarts/components';
 import store from "@/store/school";
+import Slider from "@/components/Slider"
 echarts.use([MapChart, TooltipComponent, VisualMapComponent, GeoComponent, CanvasRenderer]);
 echarts.registerMap('china', chinaJson);
 const AREA_COLOR = ['#00A9FF', '#22FFE1', '#FFC800']
@@ -38,6 +39,12 @@ const Area = () => {
   const top50Max = useMemo(
     () => {
       return Math.max(...top50List.map(item => item.job_num))
+    },
+    [top50List]
+  )
+  const sendList = useMemo(
+    () => {
+      return top50List.length >= 8 ? [...top50List, ...top50List] : top50List.sort((b, a) => b.job_num - a.job_num)
     },
     [top50List]
   )
@@ -268,6 +275,7 @@ const Area = () => {
   }
   const getJob = () => {
     getProvideJobTopCompany({ region: store.selectArea }).then(res => {
+      console.log(res.data)
       setTop50List(res.data?.source || [])
     })
   }
@@ -369,7 +377,22 @@ const Area = () => {
       </div>
       <div>
         <Title className='warp-30' text="岗位供给TOP50企业"></Title>
-        <div className="company left-company school-scroll">
+        <Slider className='company left-company' data={sendList} slidesPerView={8} renderSlide={(item, index) => {
+          return <div className="company-item">
+            <div className={`company-name ${item.rank <= 2 ? 'company-top' : ''}`}>
+              <span className="index">
+                <span className={item.rank <= 2 ? 'top3-icon' : ''}>{item.rank}</span>
+                <span className="name">{item.company_name}</span>
+              </span>
+              <span className={`count ${item.rank <= 2 ? 'top3' : ''}`}>岗位/{item.job_num}人</span>
+            </div>
+            <Progress size="small" percent={item.job_num / top50Max * 100} showInfo={false} strokeColor={{
+              '0%': item.rank <= 2 ? '#FF6D3E35' : '#EFF4FF35',
+              '100%': item.rank <= 2 ? '#FFD03B' : '#EFF4FF'
+            }} />
+          </div>
+        }}></Slider>
+        {/* <div className="company left-company school-scroll">
           {
             top50List.map((item, index) => {
               return <div className="company-item">
@@ -387,7 +410,7 @@ const Area = () => {
               </div>
             })
           }
-        </div>
+        </div> */}
       </div>
     </div>
     <div className="right">

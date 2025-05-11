@@ -5,7 +5,7 @@ const HeadName = ({ className }) => {
   return (
     <div className={className}>
       <marquee
-        direction="down"
+        direction="up"
       >
         <div className="text">{store.name}</div>
       </marquee>

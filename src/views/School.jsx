@@ -13,6 +13,7 @@ import { Image } from "antd"
 import { chunkBySix } from "@/utils/common"
 import { getSchoolMajorJobNum, getSchoolProvideJob, getCourseDevelopment, getSchoolMatchResult, getSchoolSaleData, getOnlineData, getOfflineSale, getSchoolTrainJob, getStartupAchievement } from "@/api/req"
 import store from "@/store/school"
+import Slider from "@/components/Slider"
 const imgList = [people1, people2, people3, people4]
 const School = () => {
   const nav = useNavigate()
@@ -75,9 +76,9 @@ const School = () => {
       <Title text="各专业实训人数"></Title>
       <div className="peoples">
         {
-          actList.slice(4).map((item, index) => {
+          chunkBySix(actList, 2).map((item, index) => {
             return <div className="people-wrap">
-              <img className="people-img" src={imgList[index]} alt="" />
+              <img className="people-img" src={imgList[index % 4]} alt="" />
               <div className="people-text">
                 <div className={`text1${index + 1}`}>{item.num}</div>
                 <div>{item.major_name}</div>

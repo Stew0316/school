@@ -316,7 +316,7 @@ const Country = () => {
       <Title className={'wrap-top'} text="全国创业之星TOP100"></Title>
       <div className="img-slider">
         <img onClick={() => CarouselRef.current.prev()} className="img-slider-left" src={goleft} alt="" />
-        <Carousel ref={CarouselRef} arrows={false} dots={false} draggable={true} autoplay={true} vertical={true}>
+        <Carousel ref={CarouselRef} arrows={false} dots={false} draggable={false} autoplay={true} vertical={true}>
           {
             chunkBySix(topData).map(item => {
               return <div className="img-slider-item">
@@ -344,14 +344,14 @@ const Country = () => {
           <span>排名</span>
         </div>
         <Slider slidesPerView={4} className='job-list' data={top50} slideClassName='' renderSlide={(item) => {
-        return <div className="school-item">
-                <div>{item.company_name}</div>
-                <div>{item.in_school_hire}</div>
-                <div>{item.job_name}</div>
-                <div>{item.job_num}</div>
-                <div>{item.rank}</div>
-              </div>
-      }}></Slider>
+          return <div className="school-item">
+            <div>{item.company_name}</div>
+            <div>{item.in_school_hire}</div>
+            <div>{item.job_name}</div>
+            <div>{item.job_num}</div>
+            <div>{item.rank}</div>
+          </div>
+        }}></Slider>
       </div>
       <Title className={'wrap-top'} text="在岗人数动态分析"></Title>
       <div className="top-train">
@@ -362,13 +362,13 @@ const Country = () => {
           <span>已实训人数（人）</span>
         </div>
         <Slider slidesPerView={4} className='job-list' data={jobList} slideClassName='' renderSlide={(item) => {
-        return <div className="job-list-warap">
-                <div className='job-list1'>{item.job_name}</div>
-                <div className='job-list1'>{item.job_num}</div>
-                <div className='job-list2'>{item.not_started}</div>
-                <div className='job-list2'>{item.started}</div>
-              </div>
-      }}></Slider>
+          return <div className="job-list-warap">
+            <div className='job-list1'>{item.job_name}</div>
+            <div className='job-list1'>{item.job_num}</div>
+            <div className='job-list2'>{item.not_started}</div>
+            <div className='job-list2'>{item.started}</div>
+          </div>
+        }}></Slider>
         {/* <div className="job-list school-scroll">
           {
             jobList.map(item => {
