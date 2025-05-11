@@ -74,58 +74,54 @@ const School = () => {
   return <div className={style.school}>
     <div className="left">
       <Title text="各专业实训人数"></Title>
-      <div className="peoples">
-        {
-          chunkBySix(actList, 2).map((item, index) => {
-            return <div className="people-wrap">
-              <img className="people-img" src={imgList[index % 4]} alt="" />
-              <div className="people-text">
-                <div className={`text1${index + 1}`}>{item.num}</div>
-                <div>{item.major_name}</div>
-              </div>
-            </div>
-          })
+      <Slider slidesPerView={2} className='peoples' data={chunkBySix(actList, 2)} renderSlide={
+        (item, index) => {
+          return <>
+            {
+              item.map((value, idx) => {
+                return <div className="people-wrap">
+                  <img className="people-img" src={imgList[index % 2 * 2 + idx]} alt="" />
+                  <div className="people-text">
+                    <div className={`text1${index % 2 * 2 + idx + 1}`}>{value.num}</div>
+                    <div>{value.major_name}</div>
+                  </div>
+                </div>
+              })
+            }
+          </>
         }
-      </div>
+      }></Slider>
       <Title className="wrap-10" text="提供岗位动态分析"></Title>
-      <div className={`headers ${jobList.length > 5 ? 'headers-scr' : ''}`}>
+      <div className={`headers`}>
         <span>序号</span>
         <span>岗位名称</span>
         <span>人数</span>
       </div>
-      <div className="table-wrap school-scroll">
-        {
-          jobList.map((item, index) => {
-            return <div key={index} className={`table-item ${index % 2 == 0 ? "table-stripe" : ""}`}>
-              <span>{index + 1}</span>
-              <span>{item.job_name}</span>
-              <span>{item.num}</span>
-            </div>
-          })
-        }
-      </div>
+      <Slider slidesPerView={5} className='table-wrap' data={jobList} renderSlide={(item, index) => {
+        return <div key={index} className={`table-item ${index % 2 == 0 ? "table-stripe" : ""}`}>
+          <span>{index + 1}</span>
+          <span>{item.job_name}</span>
+          <span>{item.num}</span>
+        </div>
+      }}></Slider>
       <Title className="wrap-10" text="课程开发动态分析"></Title>
-      <div className={`headers ${jobList.length > 5 ? 'headers-scr' : ''}`}>
+      <div className={`headers`}>
         <span>序号</span>
         <span>课程名称</span>
         <span>数量</span>
       </div>
-      <div className="table-wrap school-scroll">
-        {
-          courseList.map((item, index) => {
-            return <div key={index} className={`table-item ${index % 2 == 0 ? "table-stripe" : ""}`}>
-              <span>{index + 1}</span>
-              <span>{item.course_name}</span>
-              <span>{item.num}</span>
-            </div>
-          })
-        }
-      </div>
+      <Slider slidesPerView={5} className='table-wrap' data={courseList} renderSlide={(item, index) => {
+        return <div key={index} className={`table-item ${index % 2 == 0 ? "table-stripe" : ""}`}>
+          <span>{index + 1}</span>
+          <span>{item.course_name}</span>
+          <span>{item.num}</span>
+        </div>
+      }}></Slider>
       <Title className="wrap-10" text="赛事成果动态分析"></Title>
       <div className="images">
         {
           majorList.map(item => {
-            return <Image src={item.img}></Image>
+            return <Image className="image-item" src={item.img}></Image>
           })
         }
       </div>

@@ -15,6 +15,10 @@
         flex-wrap: wrap;
         justify-content: space-between;
         gap: 16px;
+        height: 190px;
+        .swiper-slide {
+          display: flex;
+        }
         .people-wrap {
           min-width: 185px;
           display: flex;
@@ -154,7 +158,6 @@
     }
     .table-wrap {
       height: 175px;
-      overflow-y: auto;
       .table-item {
         line-height: 35px;
         color: #ffffffe6;
@@ -162,6 +165,7 @@
         & > span {
           flex: 0 0 33.33%;
           text-align: center;
+          min-width: 0;
         }
       }
       .table-stripe {
