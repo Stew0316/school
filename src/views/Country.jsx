@@ -369,18 +369,6 @@ const Country = () => {
             <div className='job-list2'>{item.started}</div>
           </div>
         }}></Slider>
-        {/* <div className="job-list school-scroll">
-          {
-            jobList.map(item => {
-              return <div>
-                <div>{item.job_name}</div>
-                <div>{item.job_num}</div>
-                <div>{item.not_started}</div>
-                <div>{item.started}</div>
-              </div>
-            })
-          }
-        </div> */}
       </div>
     </div>
     <div className="center">

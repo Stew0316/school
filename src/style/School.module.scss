@@ -10,12 +10,17 @@
     .left {
       width: 430px;
       padding-top: 90px;
+      .table-wrap {
+        // height: 175px;
+        height: calc((83.33vh - 90px - 350px - 120px - 30px) / 2);
+      }
       .peoples {
         display: flex;
         flex-wrap: wrap;
         justify-content: space-between;
         gap: 16px;
-        height: 190px;
+        height: 16.67vh;
+
         .swiper-slide {
           display: flex;
         }
@@ -133,6 +138,9 @@
             flex: 0 0 50%;
             min-width: 0;
             text-align: center;
+            overflow: hidden;
+            text-overflow: ellipsis; //文本溢出显示省略号
+            white-space: nowrap; //文本不会换行
             &:nth-child(1) {
               border-right: 1px solid rgba(255, 255, 255, 0.8);
               box-sizing: border-box;
@@ -160,7 +168,8 @@
       width: calc(100% - 12px);
     }
     .table-wrap {
-      height: 175px;
+      // height: 175px;
+      height: calc((100vh - 90px - 200px - 90px) / 4);
       .table-item {
         line-height: 35px;
         color: #ffffffe6;

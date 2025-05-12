@@ -10,9 +10,12 @@
     .left {
       padding-top: 95px;
       width: 460px;
+      height: calc(100vh - 70px);
       .img-slider {
         display: flex;
         align-items: center;
+        height: 140px;
+        overflow-y: hidden;
         img {
           width: 32px;
           height: 32px;
@@ -24,7 +27,7 @@
         .img-slider-item {
           display: grid !important;
           grid-template-columns: repeat(3, 1fr);
-          gap: 20px;
+          // gap: 20px;
           padding: 0 21.5px;
           .img-slider-item-item {
             position: relative;
@@ -32,7 +35,7 @@
             // height: 60px;
             img {
               width: auto;
-              height: 100%;
+              height: 70px;
               max-height: 100px;
               margin: 0 auto;
             }
@@ -61,15 +64,21 @@
           }
         }
         .job-list {
-          height: 120px;
+          height: calc(
+            (100vh - 95px - 200px - 180px - 96px - 140px - 60px - 40px) / 2
+          );
           .swiper-slide {
             display: flex;
+            height: calc(
+              ((100vh - 95px - 200px - 180px - 96px - 140px - 60px - 40px) / 2) /
+                5
+            );
           }
           .school-item {
             width: 100%;
             display: flex;
             text-align: center;
-            &>div {
+            & > div {
               flex: 0 0 20%;
               text-align: center;
               line-height: 30px;
@@ -102,35 +111,35 @@
           }
         }
         .job-list {
-          height: 120px;
+          height: calc(
+            (100vh - 95px - 200px - 180px - 96px - 140px - 60px - 40px) / 2
+          );
           overflow-x: hidden;
-          
-            
-          
         }
         .job-list-warap {
-            display: flex;
-            line-height: 30px;
-          }
-          .job-list1 {
-              flex: 0 0 20%;
-              display: flex;
-              justify-content: center;
-              font-size: 12px;
-            }
-            .job-list2 {
-              flex: 0 0 30%;
-              display: flex;
-              justify-content: center;
-              font-size: 12px;
-            }
+          display: flex;
+          line-height: 30px;
+        }
+        .job-list1 {
+          flex: 0 0 20%;
+          display: flex;
+          justify-content: center;
+          font-size: 12px;
+        }
+        .job-list2 {
+          flex: 0 0 30%;
+          display: flex;
+          justify-content: center;
+          font-size: 12px;
+        }
       }
     }
     .center {
       padding: 113px 40px 0 42px;
       flex: 1;
+      height: calc(100vh - 70px);
       .china {
-        height: 700px;
+        height: calc(100vh - 70px - 132px - 113px - 42px);
         margin-bottom: 10px;
       }
       .center-data {
@@ -162,7 +171,7 @@
       width: 430px;
       padding-top: 77px;
       .line-data {
-        height: 250px;
+        height: calc((100vh - 150px - 77px - 208px - 70px) / 2);
       }
       .range {
         margin-bottom: 12px;

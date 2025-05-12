@@ -54,7 +54,7 @@
   overflow-y: auto;
 }
 .school-area {
-  height: 462px;
+  height: calc(100vh - 100px - 240px - 115px - 70px - 50px - 32px);
 }
 
 .school-item {
