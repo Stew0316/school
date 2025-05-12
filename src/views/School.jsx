@@ -37,6 +37,15 @@ const School = () => {
     },
     [offLineData]
   )
+  const offLineValue = useMemo(
+    () => {
+      return offLineData.sort((a, b) => b.month_sale - a.month_sale).map((item, index) => {
+        item.index = index
+        return item
+      })
+    },
+    [offLineData]
+  )
   const [jobList, setJobList] = useState([])
   const [achievementList, setAchievementList] = useState([])
   useEffect(() => {
@@ -118,13 +127,16 @@ const School = () => {
         </div>
       }}></Slider>
       <Title className="wrap-10" text="赛事成果动态分析"></Title>
-      <div className="images">
-        {
-          majorList.map(item => {
-            return <Image className="image-item" src={item.img}></Image>
-          })
-        }
-      </div>
+      <Slider className='images' slidesPerView={2} data={[...chunkBySix(majorList, 3), ...chunkBySix(majorList, 3)]} renderSlide={(item, index) => {
+        return <>
+          {
+            item.map(value => {
+              return <Image className="image-item" src={value.img}></Image>
+            })
+          }
+        </>
+      }}>
+      </Slider>
     </div>
     <div className="center">
 
@@ -160,69 +172,58 @@ const School = () => {
         <span>销售额</span>
         <span>排名</span>
       </div>
-      <div className="table-wrap school-scroll">
-        {
-          lineData.map((item, index) => {
-            return <div key={index} className={`table-item ${index % 2 == 0 ? "table-stripe" : ""}`}>
-              <span>{item.type}</span>
-              <span>{item.month_sale}</span>
-              <span className={`${index < 3 ? 'school-coin' : ''}`}>{index + 1}</span>
-            </div>
-          })
-        }
-      </div>
+      <Slider className='table-wrap' slidesPerView={5} data={[...lineData.map((item, index) => {
+        item.index = index
+        return item
+      }), ...lineData.map((item, index) => {
+        item.index = index
+        return item
+      })]} renderSlide={(item, index) => {
+        return <div key={item.index} className={`table-item ${item.index % 2 == 0 ? "table-stripe" : ""}`}>
+          <span>{item.type}</span>
+          <span>{item.month_sale}</span>
+          <span className={`${item.index < 3 ? 'school-coin' : ''}`}>{item.index + 1}</span>
+        </div>
+      }}></Slider>
       <Title className="wrap-10 text-yellow" text="线下销售额数据"></Title>
-      <div className="company-wrap school-scroll school-scroll2">
-        {
-          offLineData.sort((a, b) => b.month_sale - a.month_sale).map((item, index) => {
-            return <div className="company-item">
-              <div className={`company-name ${index <= 2 ? 'company-top' : ''}`}>
-                <span className="index">
-                  <span className={index <= 2 && 'top3-text'}>{index + 1}</span>
-                  <span className="name">{item.store_name}</span>
-                </span>
-                <span className={`count ${index <= 2 && 'top3'}`}>{item.month_sale}万元</span>
-              </div>
-              <Progress size="small" percent={item.month_sale / offLineMax * 100} showInfo={false} strokeColor={{
-                '0%': index <= 2 ? '#FF6D3E35' : '#EFF4FF35',
-                '100%': index <= 2 ? '#FFD03B' : '#EFF4FF'
-              }} />
-            </div>
-          })
-        }
-      </div>
-
+      <Slider className='table-wrap' slidesPerView={5} data={[...offLineValue, ...offLineValue]} renderSlide={(item, index) => {
+        return <div className="company-item">
+          <div className={`company-name ${item.index <= 2 ? 'company-top' : ''}`}>
+            <span className="index">
+              <span className={item.index <= 2 && 'top3-text'}>{item.index + 1}</span>
+              <span className="name">{item.store_name}</span>
+            </span>
+            <span className={`count ${item.index <= 2 && 'top3'}`}>{item.month_sale}万元</span>
+          </div>
+          <Progress size="small" percent={item.month_sale / offLineMax * 100} showInfo={false} strokeColor={{
+            '0%': item.index <= 2 ? '#FF6D3E35' : '#EFF4FF35',
+            '100%': item.index <= 2 ? '#FFD03B' : '#EFF4FF'
+          }} />
+        </div>
+      }}></Slider>
       <Title className="wrap-10" text="TOP10岗位"></Title>
       <div className={`headers ${jobList.length > 5 ? 'headers-scr' : ''}`}>
         <span>岗位</span>
         <span>人数</span>
         <span>排名</span>
       </div>
-      <div className="table-wrap school-scroll">
-        {
-          top10.map((item, index) => {
-            return <div key={index} className={`table-item ${index % 2 == 0 ? "table-stripe" : ""}`}>
-              <span>{item.job_name}</span>
-              <span>{item.num}</span>
-              <span className={`${index < 3 ? 'school-coin' : ''}`}>{index + 1}</span>
-            </div>
-          })
-        }
-      </div>
+      <Slider className='table-wrap' slidesPerView={5} data={top10} renderSlide={(item, index) => {
+        return <div key={index} className={`table-item ${index % 2 == 0 ? "table-stripe" : ""}`}>
+          <span>{item.job_name}</span>
+          <span>{item.num}</span>
+          <span className={`${index < 3 ? 'school-coin' : ''}`}>{index + 1}</span>
+        </div>
+      }}></Slider>
       <Title className="wrap-10" text="创新创业的孵化成功"></Title>
-      <div className="comp-name">
-        {
-          chunkBySix(achievementList, 2).map((item, index) => {
-            return <div className={`lines ${index % 2 == 0 ? 'line-stripe' : ''}`}>
-              {
-                item.map(value => {
-                  return <div>{value.company_name}</div>
-                })
-              }
-            </div>
-          })
-        }
-      </div>
+      <Slider className='comp-name' slidesPerView={3} data={chunkBySix(achievementList, 2)} renderSlide={(item, index) => {
+        return <div className={`lines ${index % 2 == 0 ? 'line-stripe' : ''}`}>
+          {
+            item.map(value => {
+              return <div>{value.company_name}</div>
+            })
+          }
+        </div>
+      }}></Slider>
     </div>
   </div>
 }
