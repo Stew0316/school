@@ -8,7 +8,7 @@ const Tooltip = ({ x, y, showExpand, school_count, month_sale, area, started_num
       <div className="school-count">学校数量：{school_count}</div>
       <div className="school-count">销售额（W）：{month_sale}</div>
       {
-        showExpand && <div className="school-count">未拓展学校数量（所）：{started_num}</div>
+        showExpand && <div className="school-count">实训人数：{started_num}</div>
       }
     </div>
   </div>

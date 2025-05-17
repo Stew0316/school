@@ -14,6 +14,7 @@ import { chunkBySix } from "@/utils/common"
 import { getSchoolMajorJobNum, getSchoolProvideJob, getCourseDevelopment, getSchoolMatchResult, getSchoolSaleData, getOnlineData, getOfflineSale, getSchoolTrainJob, getStartupAchievement } from "@/api/req"
 import store from "@/store/school"
 import Slider from "@/components/Slider"
+import { formatNumber } from "@/utils/common"
 const imgList = [people1, people2, people3, people4]
 const School = () => {
   const nav = useNavigate()
@@ -83,7 +84,7 @@ const School = () => {
   return <div className={style.school}>
     <div className="left">
       <Title text="各专业实训人数"></Title>
-      <Slider slidesPerView={2} className='peoples' data={chunkBySix(actList, 2)} renderSlide={
+      <Slider slidesPerView={2} autoplay={false} allowTouchMove={true} className='peoples' data={chunkBySix(actList, 2)} renderSlide={
         (item, index) => {
           return <>
             {
@@ -127,7 +128,7 @@ const School = () => {
         </div>
       }}></Slider>
       <Title className="wrap-10" text="赛事成果动态分析"></Title>
-      <Slider className='images' slidesPerView={2} data={[...chunkBySix(majorList, 3), ...chunkBySix(majorList, 3)]} renderSlide={(item, index) => {
+      <Slider className='images' autoplay={false} allowTouchMove={true} slidesPerView={2} data={[...chunkBySix(majorList, 3), ...chunkBySix(majorList, 3)]} renderSlide={(item, index) => {
         return <>
           {
             item.map(value => {
@@ -143,15 +144,15 @@ const School = () => {
       <div className="center-data">
         <div className="center-data-item">
           <Num data={count.year_sale}></Num>
-          <div className="center-data-text">年销售额（万元）</div>
+          <div className="center-data-text">年销售额</div>
         </div>
         <div className="center-data-item center-data-center">
           <Num data={count.month_sale}></Num>
-          <div className="center-data-text">月销售额（万元）</div>
+          <div className="center-data-text">月销售额</div>
         </div>
         <div className="center-data-item">
           <Num data={count.day_sale}></Num>
-          <div className="center-data-text">日销售额（万元）</div>
+          <div className="center-data-text">日销售额</div>
         </div>
       </div>
       <div className="china-map">
@@ -172,7 +173,7 @@ const School = () => {
         <span>销售额</span>
         <span>排名</span>
       </div>
-      <Slider className='table-wrap' slidesPerView={5} data={[...lineData.map((item, index) => {
+      <Slider autoplay={false} allowTouchMove={true} className='table-wrap' slidesPerView={5} data={[...lineData.map((item, index) => {
         item.index = index
         return item
       }), ...lineData.map((item, index) => {
@@ -181,19 +182,19 @@ const School = () => {
       })]} renderSlide={(item, index) => {
         return <div key={item.index} className={`table-item ${item.index % 2 == 0 ? "table-stripe" : ""}`}>
           <span>{item.type}</span>
-          <span>{item.month_sale}</span>
+          <span>{formatNumber(item.month_sale)}</span>
           <span className={`${item.index < 3 ? 'school-coin' : ''}`}>{item.index + 1}</span>
         </div>
       }}></Slider>
       <Title className="wrap-10 text-yellow" text="线下销售额数据"></Title>
-      <Slider className='table-wrap' slidesPerView={5} data={[...offLineValue, ...offLineValue]} renderSlide={(item, index) => {
+      <Slider autoplay={false} allowTouchMove={true} className='table-wrap' slidesPerView={5} data={[...offLineValue, ...offLineValue]} renderSlide={(item, index) => {
         return <div className="company-item">
           <div className={`company-name ${item.index <= 2 ? 'company-top' : ''}`}>
             <span className="index">
               <span className={item.index <= 2 && 'top3-text'}>{item.index + 1}</span>
               <span className="name">{item.store_name}</span>
             </span>
-            <span className={`count ${item.index <= 2 && 'top3'}`}>{item.month_sale}万元</span>
+            <span className={`count ${item.index <= 2 && 'top3'}`}>{formatNumber(item.month_sale, '')}万元</span>
           </div>
           <Progress size="small" percent={item.month_sale / offLineMax * 100} showInfo={false} strokeColor={{
             '0%': item.index <= 2 ? '#FF6D3E35' : '#EFF4FF35',
@@ -207,7 +208,7 @@ const School = () => {
         <span>人数</span>
         <span>排名</span>
       </div>
-      <Slider className='table-wrap' slidesPerView={5} data={top10} renderSlide={(item, index) => {
+      <Slider autoplay={false} allowTouchMove={true} className='table-wrap' slidesPerView={5} data={top10} renderSlide={(item, index) => {
         return <div key={index} className={`table-item ${index % 2 == 0 ? "table-stripe" : ""}`}>
           <span>{item.job_name}</span>
           <span>{item.num}</span>
@@ -215,7 +216,7 @@ const School = () => {
         </div>
       }}></Slider>
       <Title className="wrap-10" text="创新创业的孵化成功"></Title>
-      <Slider className='comp-name' slidesPerView={3} data={chunkBySix(achievementList, 2)} renderSlide={(item, index) => {
+      <Slider autoplay={false} allowTouchMove={true} className='comp-name' slidesPerView={3} data={chunkBySix(achievementList, 2)} renderSlide={(item, index) => {
         return <div className={`lines ${index % 2 == 0 ? 'line-stripe' : ''}`}>
           {
             item.map(value => {

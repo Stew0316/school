@@ -39,3 +39,22 @@ export const gradientColor1 = new echarts.graphic.LinearGradient(
   ],
   false
 );
+/**
+ * 将数字格式化为以“W”为单位，保留一位小数
+ * @param {number} num - 需要格式化的数字
+ * @returns {string} 格式化后的字符串
+ */
+export function formatNumber(num, unit = "W") {
+  if (typeof num !== "number" || isNaN(num)) {
+    throw new TypeError("参数必须是有效的数字");
+  }
+
+  // 如果大于等于 10000，则除以 10000 并保留一位小数，最后拼接 "W"
+  if (num >= 10000) {
+    const w = (num / 10000).toFixed(1); // 使用 toFixed(1) 保留一位小数 :contentReference[oaicite:0]{index=0}
+    return `${w}${unit}`; // 使用模板字符串拼接 :contentReference[oaicite:1]{index=1}
+  }
+
+  // 小于 10000 时，直接返回原数字字符串
+  return num.toString();
+}

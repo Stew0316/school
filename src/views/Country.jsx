@@ -23,6 +23,7 @@ import store from "@/store/school";
 import Slider from "@/components/Slider"
 import { chunkBySix, COLORS, pickColor, gradientColor1, gradientColor } from "@/utils/common";
 import { getFlowPool, getEntrepreneurStar, getOfflineSale, getOnlineData, getProvideJobTopCompany, getTopSchoolSale, getOnJobNum, getIndexData } from "@/api/req";
+import { formatNumber } from "@/utils/common";
 const imgList = [create1, create2, create3, create4]
 function formatCount(num) {
   // 若不是数字或小于10000，直接返回原数
@@ -68,7 +69,7 @@ const Country = () => {
       },
       grid: {
         top: '3%',
-        left: 0,
+        left: '1%',
         right: 0,
         bottom: 0, //下边距
         containLabel: true
@@ -84,7 +85,8 @@ const Country = () => {
       yAxis: {
         type: 'value',
         axisLabel: {
-          color: '#EFF4FF'
+          color: '#EFF4FF',
+          formatter: value => formatNumber(value)
         },
       },
       series: [
@@ -94,7 +96,7 @@ const Country = () => {
           barMaxWidth: 10,
           itemStyle: {
             color: gradientColor         // 应用同一渐变 :contentReference[oaicite:2]{index=2}
-          }
+          },
         },
         {
           name: "外圆",
@@ -130,7 +132,7 @@ const Country = () => {
       },
       grid: {
         top: '3%',
-        left: 0,
+        left: '1%',
         right: 0,
         bottom: 0, //下边距
         containLabel: true
@@ -146,7 +148,8 @@ const Country = () => {
       yAxis: {
         type: 'value',
         axisLabel: {
-          color: '#EFF4FF'
+          color: '#EFF4FF',
+          formatter: value => formatNumber(value)
         }
       },
       series: [

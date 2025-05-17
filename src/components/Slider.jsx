@@ -12,7 +12,8 @@ const Slider = ({
   className = '',
   data = [],
   slideClassName = '',
-  renderSlide
+  renderSlide,
+  ...props
 }) => {
   return <Swiper
     direction={direction}
@@ -28,6 +29,7 @@ const Slider = ({
     className={className}
     modules={[Autoplay, FreeMode]}
     key={Math.random()}
+    {...props}
   >
     {
       data.map((item, index) => {

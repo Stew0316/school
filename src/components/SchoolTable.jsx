@@ -1,6 +1,7 @@
 import Slider from './Slider'
 import store from '@/store/school'
 import { useNavigate } from 'react-router'
+import { formatNumber } from '@/utils/common'
 const SchoolTable = ({ data, lineHeight, className, slidesPerView = 6, slideClassName }) => {
   const nav = useNavigate()
   const goSchool = item => {
@@ -18,7 +19,7 @@ const SchoolTable = ({ data, lineHeight, className, slidesPerView = 6, slideClas
       <Slider slidesPerView={slidesPerView} className={slideClassName} data={data} slideClassName='school-item' renderSlide={(item) => {
         return <div onClick={() => goSchool(item)}>
           <span className="name"><span>{item.school_name}</span></span>
-          <span className="count">{item.month_sale}</span>
+          <span className="count">{formatNumber(item.month_sale)}</span>
           <span>{item.rank}</span>
         </div>
       }}></Slider>
