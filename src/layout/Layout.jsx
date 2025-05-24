@@ -10,7 +10,7 @@ const Layout = ({ children }) => {
     <div className="head-right"></div>
     <HeadName className="head-name"></HeadName>
     <Timer className="head-timer"></Timer>
-    <Weather className="head-weather"></Weather>
+    {/* <Weather className="head-weather"></Weather> */}
     {children}
     <div className="bottom"></div>
   </div>

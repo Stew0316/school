@@ -13,7 +13,7 @@ import { MapChart } from 'echarts/charts';
 import { CanvasRenderer } from 'echarts/renderers';
 import { useNavigate } from "react-router";
 import emit from "@/utils/emit.js";
-import { pickColor, COLORS } from "@/utils/common";
+import { pickColor, COLORS, formatNumber } from "@/utils/common";
 import { getProvinceProcessing, getTalentTraining, getIndexData, getProvideJobTopCompany, getTopSchoolSale, getSchoolList } from "@/api/req";
 import { TooltipComponent, VisualMapComponent, GeoComponent } from 'echarts/components';
 import store from "@/store/school";
@@ -138,7 +138,7 @@ const Area = () => {
         color: AREA_COLOR,
         title: [
           {
-            text: total > 10000 ? '1.2W' : total,
+            text: total > 10000 ? formatNumber(total) : total,
             left: 'center',
             top: '30%',
             left: "27%",
@@ -392,25 +392,6 @@ const Area = () => {
             }} />
           </div>
         }}></Slider>
-        {/* <div className="company left-company school-scroll">
-          {
-            top50List.map((item, index) => {
-              return <div className="company-item">
-                <div className={`company-name ${index <= 2 ? 'company-top' : ''}`}>
-                  <span className="index">
-                    <span className={index <= 2 && 'top3-icon'}>{item.rank}</span>
-                    <span className="name">{item.company_name}</span>
-                  </span>
-                  <span className={`count ${index <= 2 && 'top3'}`}>岗位/{item.job_num}人</span>
-                </div>
-                <Progress size="small" percent={item.job_num / top50Max * 100} showInfo={false} strokeColor={{
-                  '0%': index <= 2 ? '#FF6D3E35' : '#EFF4FF35',
-                  '100%': index <= 2 ? '#FFD03B' : '#EFF4FF'
-                }} />
-              </div>
-            })
-          }
-        </div> */}
       </div>
     </div>
     <div className="right">
